@@ -17,7 +17,12 @@ option {
 	color: #2f3c3b;
 }
 
-.home {
+h3 {
+	font-weight: bold;
+}
+
+.home,
+.results {
 	width: 100vw;
 	height: 100vh;
 	background-color: #2f3c3b;
@@ -42,7 +47,9 @@ option {
 }
 
 .section {
-	margin: 10px;
+	border-top: 1px solid #a6bbb8;
+	padding: 10px;
+	margin: 0px;
 }
 
 .dateInput {
@@ -76,4 +83,34 @@ option {
 
 .pplButton {
 	width: 2em;
+}
+
+.topper {
+	width: 100vw;
+	height: 30vh;
+}
+
+#map {
+	position: inherit;
+	width: 100%;
+	height: 80%;
+}
+
+.statPeople {
+	display: flex;
+	align-items: center;
+}
+
+.numberPpl {
+	margin-right: 0.5em;
+	margin-bottom: 0px;
+	font-weight: bold;
+}
+
+.fas {
+	font-size: 1.25em;
+}
+
+.floatRight {
+	float: right;
 }
