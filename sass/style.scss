@@ -43,6 +43,8 @@ h3 {
 .topper {
 	width: 100vw;
 	height: 30vh;
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
 .section {
@@ -98,9 +100,8 @@ h3 {
 }
 
 #map {
-	position: inherit;
 	width: 100%;
-	height: 80%;
+	height: 85%;
 }
 
 .statPeople {
@@ -124,7 +125,6 @@ h3 {
 .floatLeft{
 	float: left;
 }
-
 .displayNone{
 	display: none;
 }
@@ -144,5 +144,5 @@ h3 {
 
 .colorDark{
  padding-right: 0.5em;
- color: $darkGray;	
+ color: $darkGray;
 }
