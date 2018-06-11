@@ -1,0 +1,8 @@
+$lightGray : #a6bbb8;
+$darkGray : #2f3c3b;
+
+@mixin inputStyle {
+	background-color: $lightGray;
+	color: $darkGray;
+	border-color: #21302B;
+}
