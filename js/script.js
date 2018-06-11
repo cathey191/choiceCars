@@ -1,5 +1,4 @@
-(function() {
-
+$(document).ready(function(){
 	// data
 	var data = [
 		(motorbike = {
@@ -37,16 +36,37 @@
 	];
 
 	// dom elements
+	var numberPpl = document.querySelector('.people')
 
+	function peopleButtons (e) {
+		var totalPpl = $('#totalPpl')[0];
+		var pplToNumber = parseInt(totalPpl.placeholder);
+
+		if (e.target.id === 'plus') {
+			totalPpl.placeholder = pplToNumber + 1;
+		} else if (e.target.id === 'minus' && totalPpl.placeholder >= '2') {
+			totalPpl.placeholder = pplToNumber - 1;
+		}
+	}
+	numberPpl.addEventListener('click', peopleButtons, false);
 
 	// page layout
-	$(document).ready(function(){
-
+		// takes you to second page
 		$('#search').click(function(){
+			// inputs
+			var pickLoc = $('#pickLocation')[0].value;
+			var dropLoc = $('#dropLocation')[0].value;
+			var pickDate = $('#pickDate')[0].value;
+			var dropDate = $('#dropDate')[0].value;
+			var totalPpl = $('#totalPpl')[0]
+
+			console.dir(totalPpl);
+
+
 			$('.home').addClass('displayNone');
 			$('.results').removeClass('displayNone');
-		});
 
+		// takes you to home page
 		$('#return').click(function(){
 			$('.results').addClass('displayNone');
 			$('.home').removeClass('displayNone');
@@ -63,4 +83,5 @@
 		center: [174.78, -41.279], // starting position
 		zoom: 12 // starting zoom
 	});
-})();
+
+});

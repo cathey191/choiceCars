@@ -27,20 +27,28 @@
 					<div class="input-group mb-3">
 					  <select class="custom-select" id="pickLocation">
 					    <option selected>Choose...</option>
-					    <option value="1">One</option>
-					    <option value="2">Two</option>
-					    <option value="3">Three</option>
+					    <option value="1">Auckland</option>
+							<option value="2">Taupo</option>
+					    <option value="3">Wellington</option>
+					    <option value="4">Picton</option>
+							<option value="5">Dunedin</option>
+							<option value="6">ChristChurch</option>
+							<option value="7">Queenstown</option>
 					  </select>
 					</div>
 
 					<!-- Drop off location -->
-					<label for="pickLocation">Drop Off</label>
+					<label for="dropLocation">Drop Off</label>
 					<div class="input-group mb-3">
-					  <select class="custom-select" id="pickLocation">
+					  <select class="custom-select" id="dropLocation">
 					    <option value="0" selected>Same as pick up</option>
-					    <option value="1">One</option>
-					    <option value="2">Two</option>
-					    <option value="3">Three</option>
+							<option value="1">Auckland</option>
+							<option value="2">Taupo</option>
+					    <option value="3">Wellington</option>
+					    <option value="4">Picton</option>
+							<option value="5">Dunedin</option>
+							<option value="6">ChristChurch</option>
+							<option value="7">Queenstown</option>
 					  </select>
 					</div>
 
@@ -48,11 +56,11 @@
 					<div class="justCenter">
 						<div class="groupInput">
 							<label for="pickDate">From</label>
-							<input type="date" class="form-control dateInput">
+							<input type="date" class="form-control dateInput" id="pickDate">
 						</div>
 						<div class="groupInput">
 							<label for="dropDate">To</label>
-							<input type="date" class="form-control dateInput">
+							<input type="date" class="form-control dateInput" id="dropDate">
 						</div>
 					</div>
 
@@ -62,11 +70,11 @@
 							<label for="peopleInput">People</label>
 							<div class="input-group mb-3">
 							  <div class="input-group-prepend">
-							    <button class="btn btn-outline-secondary pplButton" type="button">-</button>
+							    <button class="btn btn-outline-secondary pplButton" type="button" id="minus">-</button>
 							  </div>
-							  <input type="number" class="peopleInput" placeholder="1">
+							  <input type="number" class="peopleInput" placeholder="1" id="totalPpl">
 								<div class="input-group-append">
-							    <button class="btn btn-outline-secondary pplButton" type="button">+</button>
+							    <button class="btn btn-outline-secondary pplButton" type="button" id="plus">+</button>
 							  </div>
 							</div>
 						</div>
