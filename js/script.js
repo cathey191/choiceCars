@@ -42,8 +42,9 @@ $(document).ready(function(){
 	function peopleButtons (e) {
 		var totalPpl = $('#totalPpl')[0];
 		var pplToNumber = parseInt(totalPpl.innerText);
+		console.dir(totalPpl.innerText);
 
-		if (e.target.id === 'plus') {
+		if (e.target.id === 'plus' && totalPpl.innerText <= '5') {
 			totalPpl.innerText = pplToNumber + 1;
 		} else if (e.target.id === 'minus' && totalPpl.innerText >= '2') {
 			totalPpl.innerText = pplToNumber - 1;
@@ -54,26 +55,34 @@ $(document).ready(function(){
 	// page layout
 		// takes you to second page
 		$('#search').click(function(){
-			// inputs
+			// inputs from doc
 			var pickLoc = $('#pickLocation')[0].value;
 			var dropLoc = $('#dropLocation')[0].value;
 			var pickDate = $('#pickDate')[0].value;
 			var dropDate = $('#dropDate')[0].value;
 			var totalPpl = $('#totalPpl')[0]
+			// var for data
+			var dash = "-";
+			var pickDateArray = pickDate.split(dash);
+			var dropDateArray = dropDate.split(dash);
+			var totalDays = dropDateArray[3] - pickDateArray[3]
 
-			console.dir(totalPpl);
+			console.dir(totalDays);
+
+			// console.log(totalDates);
 
 
-			$('.home').addClass('displayNone');
-			$('.results').removeClass('displayNone');
 
-		// takes you to home page
-		$('#return').click(function(){
-			$('.results').addClass('displayNone');
-			$('.home').removeClass('displayNone');
-		});
-
+			// $('.home').addClass('displayNone');
+			// $('.results').removeClass('displayNone');
 	});
+
+	// takes you to home page
+	$('#return').click(function(){
+		$('.results').addClass('displayNone');
+		$('.home').removeClass('displayNone');
+	});
+
 
 	// map
 	mapboxgl.accessToken =
