@@ -1,4 +1,6 @@
 (function() {
+
+	// data
 	var data = [
 		(motorbike = {
 			mixSeat: 1,
@@ -34,6 +36,25 @@
 		})
 	];
 
+	// dom elements
+
+
+	// page layout
+	$(document).ready(function(){
+
+		$('#search').click(function(){
+			$('.home').addClass('displayNone');
+			$('.results').removeClass('displayNone');
+		});
+
+		$('#return').click(function(){
+			$('.results').addClass('displayNone');
+			$('.home').removeClass('displayNone');
+		});
+
+	});
+
+	// map
 	mapboxgl.accessToken =
 		'pk.eyJ1IjoiY2F0aGV5MTkxIiwiYSI6ImNqaTNtb2o1ODAwNjgzcHF0ZWQxdmVtcTcifQ.BaXfgHPABUk6-kMMyyMNXQ';
 	var map = new mapboxgl.Map({

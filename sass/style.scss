@@ -17,11 +17,16 @@ h3 {
 
 
 // Page layout
+.main {
+	background-color: $darkGray;
+}
+
 .home,
 .results {
 	width: 100vw;
 	height: 100vh;
-	background-color: $darkGray;
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
 .banner {
@@ -53,11 +58,10 @@ h3 {
 	margin-bottom: 16px;
 }
 
-.logo {
-	font-family: 'Signika', sans-serif;
-	color: #d6f0ec;
-	text-align: center;
-	line-height: 1em;
+.nav{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 
@@ -116,4 +120,29 @@ h3 {
 
 .floatRight {
 	float: right;
+}
+.floatLeft{
+	float: left;
+}
+
+.displayNone{
+	display: none;
+}
+
+// Passific Tags
+.logo {
+	font-family: 'Signika', sans-serif;
+	color: #d6f0ec;
+	text-align: center;
+	line-height: 1em;
+	margin: 0 auto;
+}
+
+.fa-arrow-left{
+	padding-left: 0.5em;
+}
+
+.colorDark{
+ padding-right: 0.5em;
+ color: $darkGray;	
 }

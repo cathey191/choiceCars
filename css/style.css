@@ -8,11 +8,15 @@ label {
 h3 {
   font-weight: bold; }
 
+.main {
+  background-color: #2f3c3b; }
+
 .home,
 .results {
   width: 100vw;
   height: 100vh;
-  background-color: #2f3c3b; }
+  max-width: 1000px;
+  margin: 0 auto; }
 
 .banner {
   width: 100%;
@@ -39,11 +43,10 @@ h3 {
   align-items: center;
   margin-bottom: 16px; }
 
-.logo {
-  font-family: 'Signika', sans-serif;
-  color: #d6f0ec;
-  text-align: center;
-  line-height: 1em; }
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 .dateInput {
   width: auto;
@@ -98,5 +101,25 @@ h3 {
 
 .floatRight {
   float: right; }
+
+.floatLeft {
+  float: left; }
+
+.displayNone {
+  display: none; }
+
+.logo {
+  font-family: 'Signika', sans-serif;
+  color: #d6f0ec;
+  text-align: center;
+  line-height: 1em;
+  margin: 0 auto; }
+
+.fa-arrow-left {
+  padding-left: 0.5em; }
+
+.colorDark {
+  padding-right: 0.5em;
+  color: #2f3c3b; }
 
 /*# sourceMappingURL=style.css.map */
