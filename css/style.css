@@ -56,20 +56,14 @@ h3 {
   color: #2f3c3b;
   border-color: #21302B; }
 
-.peopleInput {
-  width: 2em;
-  text-align: center;
-  background-color: #a6bbb8;
-  color: #2f3c3b;
-  border-color: #21302B; }
-
 .custom-select {
   background-color: #a6bbb8;
   color: #2f3c3b;
   border-color: #21302B; }
 
-.pplButton {
+.pplButton, .peopleInput {
   width: 2em;
+  height: 2.25em;
   font-weight: bold;
   font-size: 1.25em;
   background-color: #a6bbb8;
@@ -83,6 +77,12 @@ h3 {
   font-size: 1.5em;
   font-weight: bold;
   color: #2f3c3b; }
+
+.peopleGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px; }
 
 #map {
   width: 100%;

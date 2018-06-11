@@ -35,17 +35,18 @@ $(document).ready(function(){
 		})
 	];
 
-	// dom elements
+	// global dom elements
 	var numberPpl = document.querySelector('.people')
 
+	// Increases and deceases number if people
 	function peopleButtons (e) {
 		var totalPpl = $('#totalPpl')[0];
-		var pplToNumber = parseInt(totalPpl.placeholder);
+		var pplToNumber = parseInt(totalPpl.innerText);
 
 		if (e.target.id === 'plus') {
-			totalPpl.placeholder = pplToNumber + 1;
-		} else if (e.target.id === 'minus' && totalPpl.placeholder >= '2') {
-			totalPpl.placeholder = pplToNumber - 1;
+			totalPpl.innerText = pplToNumber + 1;
+		} else if (e.target.id === 'minus' && totalPpl.innerText >= '2') {
+			totalPpl.innerText = pplToNumber - 1;
 		}
 	}
 	numberPpl.addEventListener('click', peopleButtons, false);

@@ -73,18 +73,14 @@ h3 {
 	@include inputStyle
 }
 
-.peopleInput {
-	width: 2em;
-	text-align: center;
-	@include inputStyle
-}
 
 .custom-select {
 	@include inputStyle
 }
 
-.pplButton {
+.pplButton, .peopleInput {
 	width: 2em;
+	height: 2.25em;
 	font-weight: bold;
 	font-size: 1.25em;
 	@include inputStyle
@@ -99,6 +95,14 @@ h3 {
 	color: $darkGray;
 }
 
+.peopleGroup {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0px;
+}
+
+// results page
 #map {
 	width: 100%;
 	height: 85%;
