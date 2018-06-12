@@ -66,11 +66,23 @@ $(document).ready(function() {
 		var dropDate = $('#dropDate')[0].value;
 		var totalPpl = $('#totalPpl')[0].innerText;
 
+		// days
+		var date1 = new Date(pickDate);
+		var date2 = new Date(dropDate);
+		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
 		// vehicles
 		for (var i = 0; i < data.length; i++) {
 			var dataType = data[i].type;
 
-			if (data[i].mixSeat <= totalPpl && data[i].maxSeat >= totalPpl) {
+			// people
+			if (
+				data[i].mixSeat <= totalPpl &&
+				data[i].maxSeat >= totalPpl &&
+				data[i].minDay <= diffDays &&
+				data[i].maxDay >= diffDays
+			) {
 				var newVehicle = '<div class="section result">';
 				newVehicle +=
 					'<button class="btn btn-outline-secondary greeenButton floatRight" >Book</button>';
