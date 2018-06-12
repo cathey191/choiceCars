@@ -66,13 +66,18 @@ $(document).ready(function() {
 		var dropDate = $('#dropDate')[0].value;
 		var totalPpl = $('#totalPpl')[0].innerText;
 
+		// location
+		if (dropLoc === '0') {
+			dropLoc = pickLoc;
+		}
+
 		// days
 		var date1 = new Date(pickDate);
 		var date2 = new Date(dropDate);
 		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
 		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-		// vehicles
+		// results
 		for (var i = 0; i < data.length; i++) {
 			var dataType = data[i].type;
 
@@ -102,11 +107,14 @@ $(document).ready(function() {
 				newVehicle += '</div>';
 				newVehicle += '</div>';
 				topper.insertAdjacentHTML('afterend', newVehicle);
+
+				// change to the other page
+				$('.home').addClass('displayNone');
+				$('.results').removeClass('displayNone');
+			} else {
+				console.log('fail');
 			}
 		}
-
-		$('.home').addClass('displayNone');
-		$('.results').removeClass('displayNone');
 	});
 
 	// takes you to home page
