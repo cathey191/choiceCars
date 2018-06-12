@@ -1,7 +1,8 @@
-$(document).ready(function(){
+$(document).ready(function() {
 	// data
 	var data = [
 		(motorbike = {
+			type: 'Motorbike',
 			mixSeat: 1,
 			maxSeat: 1,
 			price: 109,
@@ -10,6 +11,7 @@ $(document).ready(function(){
 			fuelKm: 3.7
 		}),
 		(smallCar = {
+			type: 'Small Car',
 			mixSeat: 1,
 			maxSeat: 2,
 			price: 129,
@@ -18,6 +20,7 @@ $(document).ready(function(){
 			fuelKm: 8.5
 		}),
 		(largeCar = {
+			type: 'Large Car',
 			mixSeat: 1,
 			maxSeat: 5,
 			price: 144,
@@ -26,6 +29,7 @@ $(document).ready(function(){
 			fuelKm: 9.7
 		}),
 		(motorhome = {
+			type: 'Motorhome',
 			mixSeat: 2,
 			maxSeat: 6,
 			price: 200,
@@ -36,14 +40,15 @@ $(document).ready(function(){
 	];
 
 	// global dom elements
-	var numberPpl = document.querySelector('.people')
+	var numberPpl = document.querySelector('.people');
+	var topper = $('.topper')[0];
 
 	// Increases and deceases number if people
-	function peopleButtons (e) {
+	function peopleButtons(e) {
 		var totalPpl = $('#totalPpl')[0];
 		var pplToNumber = parseInt(totalPpl.innerText);
 
-		if (e.target.id === 'plus') {
+		if (e.target.id === 'plus' && totalPpl.innerText <= '5') {
 			totalPpl.innerText = pplToNumber + 1;
 		} else if (e.target.id === 'minus' && totalPpl.innerText >= '2') {
 			totalPpl.innerText = pplToNumber - 1;
@@ -52,27 +57,51 @@ $(document).ready(function(){
 	numberPpl.addEventListener('click', peopleButtons, false);
 
 	// page layout
-		// takes you to second page
-		$('#search').click(function(){
-			// inputs
-			var pickLoc = $('#pickLocation')[0].value;
-			var dropLoc = $('#dropLocation')[0].value;
-			var pickDate = $('#pickDate')[0].value;
-			var dropDate = $('#dropDate')[0].value;
-			var totalPpl = $('#totalPpl')[0]
+	// takes you to second page
+	$('#search').click(function() {
+		// inputs
+		var pickLoc = $('#pickLocation')[0].value;
+		var dropLoc = $('#dropLocation')[0].value;
+		var pickDate = $('#pickDate')[0].value;
+		var dropDate = $('#dropDate')[0].value;
+		var totalPpl = $('#totalPpl')[0].innerText;
 
-			console.dir(totalPpl);
+		// vehicles
+		for (var i = 0; i < data.length; i++) {
+			var dataType = data[i].type;
 
+			if (data[i].mixSeat <= totalPpl && data[i].maxSeat >= totalPpl) {
+				var newVehicle = '<div class="section result">';
+				newVehicle +=
+					'<button class="btn btn-outline-secondary greeenButton floatRight" >Book</button>';
+				newVehicle += '<h3 class="title">' + dataType + '</h3>';
+				newVehicle +=
+					'<p class="stats">Manual<br />Special Licence Required<br />' +
+					data[i].fuelKm +
+					' / 100km</p>';
+				newVehicle += '<div class="statPeople">';
+				newVehicle +=
+					'<h5 class="numberPpl">' +
+					data[i].mixSeat +
+					'-' +
+					data[i].maxSeat +
+					'</h5>';
+				newVehicle += '<i class="fas fa-user"></i>';
+				newVehicle += '</div>';
+				newVehicle += '</div>';
+				topper.insertAdjacentHTML('afterend', newVehicle);
+			}
+		}
 
-			$('.home').addClass('displayNone');
-			$('.results').removeClass('displayNone');
+		$('.home').addClass('displayNone');
+		$('.results').removeClass('displayNone');
+	});
 
-		// takes you to home page
-		$('#return').click(function(){
-			$('.results').addClass('displayNone');
-			$('.home').removeClass('displayNone');
-		});
-
+	// takes you to home page
+	$('#return').click(function() {
+		$('.result').remove();
+		$('.results').addClass('displayNone');
+		$('.home').removeClass('displayNone');
 	});
 
 	// map
@@ -84,5 +113,4 @@ $(document).ready(function(){
 		center: [174.78, -41.279], // starting position
 		zoom: 12 // starting zoom
 	});
-
 });

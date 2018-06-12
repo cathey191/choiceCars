@@ -1,5 +1,4 @@
-@import "variables.scss";
-
+@import 'variables.scss';
 
 // Reset styling
 * {
@@ -14,7 +13,6 @@ label {
 h3 {
 	font-weight: bold;
 }
-
 
 // Page layout
 .main {
@@ -51,6 +49,7 @@ h3 {
 	border-top: 1px solid $lightGray;
 	padding: 10px;
 	margin: 0px;
+	background-color: $darkGray;
 }
 
 .justCenter {
@@ -60,30 +59,29 @@ h3 {
 	margin-bottom: 16px;
 }
 
-.nav{
+.nav {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-
 //Input styling
 .dateInput {
 	width: auto;
-	@include inputStyle
+	@include inputStyle;
 }
-
 
 .custom-select {
-	@include inputStyle
+	@include inputStyle;
 }
 
-.pplButton, .peopleInput {
+.pplButton,
+.peopleInput {
 	width: 2em;
 	height: 2.25em;
 	font-weight: bold;
 	font-size: 1.25em;
-	@include inputStyle
+	@include inputStyle;
 }
 
 .greeenButton {
@@ -126,10 +124,10 @@ h3 {
 .floatRight {
 	float: right;
 }
-.floatLeft{
+.floatLeft {
 	float: left;
 }
-.displayNone{
+.displayNone {
 	display: none;
 }
 
@@ -142,11 +140,11 @@ h3 {
 	margin: 0 auto;
 }
 
-.fa-arrow-left{
+.fa-arrow-left {
 	padding-left: 0.5em;
 }
 
-.colorDark{
- padding-right: 0.5em;
- color: $darkGray;
+.colorDark {
+	padding-right: 0.5em;
+	color: $darkGray;
 }

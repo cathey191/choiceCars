@@ -37,7 +37,8 @@ h3 {
 .section {
   border-top: 1px solid #a6bbb8;
   padding: 10px;
-  margin: 0px; }
+  margin: 0px;
+  background-color: #2f3c3b; }
 
 .justCenter {
   display: flex;
@@ -61,7 +62,8 @@ h3 {
   color: #2f3c3b;
   border-color: #21302B; }
 
-.pplButton, .peopleInput {
+.pplButton,
+.peopleInput {
   width: 2em;
   height: 2.25em;
   font-weight: bold;
