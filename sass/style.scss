@@ -61,7 +61,6 @@ option {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 16px;
 }
 
 .nav {
@@ -96,6 +95,10 @@ option {
 	font-size: 1.5em;
 	font-weight: bold;
 	color: $darkGray;
+}
+
+.groupInput {
+	margin-bottom: 16px;
 }
 
 .peopleGroup {
@@ -152,4 +155,30 @@ option {
 .colorDark {
 	padding-right: 0.5em;
 	color: $darkGray;
+}
+
+.locations {
+	max-width: 650px;
+}
+
+@media only screen and (min-width: 375px) {
+	.dateInputs {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+
+@media only screen and (min-width: 450px) {
+	.locInput {
+		width: 50%;
+	}
+
+	.dateInputs {
+		display: inline-flex;
+	}
+
+	.dateTwo {
+		padding-left: 2em;
+	}
 }

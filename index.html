@@ -22,43 +22,47 @@
 				</div>
 
 				<div class="section">
-					<!-- Pick up location -->
-					<label for="pickLocation">Pick Up</label>
-					<div class="input-group mb-3">
-					  <select class="custom-select" id="pickLocation">
-					    <option selected>Choose...</option>
-					    <option value="1">Auckland</option>
-							<option value="2">Taupo</option>
-					    <option value="3">Wellington</option>
-					    <option value="4">Picton</option>
-							<option value="5">Dunedin</option>
-							<option value="6">ChristChurch</option>
-							<option value="7">Queenstown</option>
-					  </select>
+
+					<div class="locations">
+						<!-- Pick up location -->
+						<label for="pickLocation">Pick Up</label>
+						<div class="input-group mb-3">
+						  <select class="custom-select locInput" id="pickLocation">
+						    <option selected>Choose...</option>
+						    <option value="1">Auckland</option>
+								<option value="2">Taupo</option>
+						    <option value="3">Wellington</option>
+						    <option value="4">Picton</option>
+								<option value="5">Dunedin</option>
+								<option value="6">ChristChurch</option>
+								<option value="7">Queenstown</option>
+						  </select>
+						</div>
+
+						<!-- Drop off location -->
+						<label for="dropLocation">Drop Off</label>
+						<div class="input-group mb-3">
+						  <select class="custom-select locInput" id="dropLocation">
+					    	<option value="0" selected>Same as pick up</option>
+								<option value="1">Auckland</option>
+								<option value="2">Taupo</option>
+						    <option value="3">Wellington</option>
+						    <option value="4">Picton</option>
+								<option value="5">Dunedin</option>
+								<option value="6">ChristChurch</option>
+								<option value="7">Queenstown</option>
+						  </select>
 					</div>
 
-					<!-- Drop off location -->
-					<label for="dropLocation">Drop Off</label>
-					<div class="input-group mb-3">
-					  <select class="custom-select" id="dropLocation">
-					    <option value="0" selected>Same as pick up</option>
-							<option value="1">Auckland</option>
-							<option value="2">Taupo</option>
-					    <option value="3">Wellington</option>
-					    <option value="4">Picton</option>
-							<option value="5">Dunedin</option>
-							<option value="6">ChristChurch</option>
-							<option value="7">Queenstown</option>
-					  </select>
 					</div>
 
 					<!-- Dates -->
-					<div class="justCenter">
+					<div class="dateInputs">
 						<div class="groupInput">
 							<label for="pickDate">From</label>
 							<input type="date" class="form-control dateInput" id="pickDate" placeholder="dd/mm/yyyy">
 						</div>
-						<div class="groupInput">
+						<div class="groupInput dateTwo">
 							<label for="dropDate">To</label>
 							<input type="date" class="form-control dateInput" id="dropDate" placeholder="dd/mm/yyyy">
 						</div>

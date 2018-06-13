@@ -57,7 +57,6 @@ $(document).ready(function() {
 	numberPpl.addEventListener('click', peopleButtons, false);
 
 	// page layout
-	// takes you to second page
 	$('#search').click(function() {
 		// inputs
 		var pickLoc = $('#pickLocation')[0].value;
@@ -112,7 +111,7 @@ $(document).ready(function() {
 				$('.home').addClass('displayNone');
 				$('.results').removeClass('displayNone');
 			} else {
-				console.log('fail');
+				// console.log('fail');
 			}
 		}
 	});
