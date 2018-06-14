@@ -58,13 +58,12 @@ $(document).ready(function() {
 
 	today = yyyy + '-' + mm + '-' + dd;
 
-	console.dir(document.querySelector('.red-tooltip'));
-
-	// Increases and deceases number if people
+	// Number of People
 	function peopleButtons(e) {
 		var totalPpl = $('#totalPpl')[0];
 		var pplToNumber = parseInt(totalPpl.innerText);
 
+		// Increases and deceases number if people
 		if (e.target.id === 'plus' && totalPpl.innerText <= '5') {
 			totalPpl.innerText = pplToNumber + 1;
 		} else if (e.target.id === 'minus' && totalPpl.innerText >= '2') {
@@ -80,15 +79,20 @@ $(document).ready(function() {
 		var dropDate = $('#dropDate')[0].value;
 		var totalPpl = $('#totalPpl')[0].innerText;
 
+		// console.log(compareDates(today, pickDate));
+
 		// val pick location
 		if (pickLoc === 'Choose...') {
 			$('#pickLocation').tooltip('show');
-		} else if (pickDate === '' || compareDates(pickDate, today)) {
+		} else if (pickDate === '' || compareDates(today, pickDate) <= -1) {
 			$('#pickDate').tooltip('show');
-		} else if (dropDate === '') {
+		} else if (dropDate === '' || compareDates(pickDate, dropDate) <= -1) {
 			$('#dropDate').tooltip('show');
 		} else {
 			getResults();
+			$('#pickLocation').tooltip('hide');
+			$('#pickDate').tooltip('hide');
+			$('#dropDate').tooltip('hide');
 		}
 	});
 
@@ -96,7 +100,7 @@ $(document).ready(function() {
 	function compareDates(startDate, endDate) {
 		var date1 = new Date(startDate);
 		var date2 = new Date(endDate);
-		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+		var timeDiff = date2.getTime() - date1.getTime();
 		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 		return diffDays;
 	}
