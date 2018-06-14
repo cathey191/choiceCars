@@ -1,44 +1,4 @@
 $(document).ready(function() {
-	// data
-	var data = [
-		(motorbike = {
-			type: 'Motorbike',
-			mixSeat: 1,
-			maxSeat: 1,
-			price: 109,
-			minDay: 1,
-			maxDay: 5,
-			fuelKm: 3.7
-		}),
-		(smallCar = {
-			type: 'Small Car',
-			mixSeat: 1,
-			maxSeat: 2,
-			price: 129,
-			minDay: 1,
-			maxDay: 10,
-			fuelKm: 8.5
-		}),
-		(largeCar = {
-			type: 'Large Car',
-			mixSeat: 1,
-			maxSeat: 5,
-			price: 144,
-			minDay: 3,
-			maxDay: 10,
-			fuelKm: 9.7
-		}),
-		(motorhome = {
-			type: 'Motorhome',
-			mixSeat: 2,
-			maxSeat: 6,
-			price: 200,
-			minDay: 2,
-			maxDay: 15,
-			fuelKm: 17
-		})
-	];
-
 	// global dom elements
 	var numberPpl = document.querySelector('.people');
 	var topper = $('.topper')[0];
@@ -78,8 +38,6 @@ $(document).ready(function() {
 		var pickDate = $('#pickDate')[0].value;
 		var dropDate = $('#dropDate')[0].value;
 		var totalPpl = $('#totalPpl')[0].innerText;
-
-		// console.log(compareDates(today, pickDate));
 
 		// val pick location
 		if (pickLoc === 'Choose...') {
@@ -165,8 +123,6 @@ $(document).ready(function() {
 					center: [174.78, -41.279], // starting position
 					zoom: 12 // starting zoom
 				});
-			} else {
-				// console.log('fail');
 			}
 		}
 	}
