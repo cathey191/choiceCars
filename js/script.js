@@ -42,6 +42,21 @@ $(document).ready(function() {
 	// global dom elements
 	var numberPpl = document.querySelector('.people');
 	var topper = $('.topper')[0];
+	// global today's date
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if (dd < 10) {
+		dd = '0' + dd;
+	}
+
+	if (mm < 10) {
+		mm = '0' + mm;
+	}
+
+	today = yyyy + '-' + mm + '-' + dd;
 
 	// Increases and deceases number if people
 	function peopleButtons(e) {
@@ -62,12 +77,11 @@ $(document).ready(function() {
 		var pickDate = $('#pickDate')[0].value;
 		var dropDate = $('#dropDate')[0].value;
 		var totalPpl = $('#totalPpl')[0].innerText;
-		console.dir($('#pickDate')[0]);
 
 		// val pick location
 		if (pickLoc === 'Choose...') {
 			$('#pickLocation').tooltip('show');
-		} else if (pickDate === '') {
+		} else if (pickDate === '' || compareDates(pickDate, today)) {
 			$('#pickDate').tooltip('show');
 		} else if (dropDate === '') {
 			$('#dropDate').tooltip('show');
@@ -75,6 +89,15 @@ $(document).ready(function() {
 			getResults();
 		}
 	});
+
+	// compare Dates
+	function compareDates(startDate, endDate) {
+		var date1 = new Date(startDate);
+		var date2 = new Date(endDate);
+		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+		return diffDays;
+	}
 
 	// page layout
 	function getResults() {
@@ -84,17 +107,13 @@ $(document).ready(function() {
 		var pickDate = $('#pickDate')[0].value;
 		var dropDate = $('#dropDate')[0].value;
 		var totalPpl = $('#totalPpl')[0].innerText;
+		// days
+		var diffDays = compareDates(pickDate, dropDate);
 
-		// location
+		// Resets location for drop off to the same as pickup
 		if (dropLoc === '0') {
 			dropLoc = pickLoc;
 		}
-
-		// days
-		var date1 = new Date(pickDate);
-		var date2 = new Date(dropDate);
-		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
 		// results
 		for (var i = 0; i < data.length; i++) {
