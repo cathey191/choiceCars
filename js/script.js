@@ -39,18 +39,23 @@ $(document).ready(function() {
 		var dropDate = $('#dropDate')[0].value;
 		var totalPpl = $('#totalPpl')[0].innerText;
 
-		// val pick location
+		// val pick location, show tooltips
+		// pickup location
 		if (pickLoc === 'Choose...') {
 			$('#pickLocation').tooltip('show');
+			// pickup date
 		} else if (pickDate === '' || compareDates(today, pickDate) <= -1) {
 			$('#pickDate').tooltip('show');
+			// drop off date
 		} else if (dropDate === '' || compareDates(pickDate, dropDate) <= -1) {
 			$('#dropDate').tooltip('show');
+			// if all are selected
+		} else if (compareDates(pickDate, dropDate) > 10) {
+			$('#dropDate')[0].title = 'Max of ten days';
+			$('#dropDate').tooltip('show');
 		} else {
+			$('[data-toggle="tooltip"]').tooltip('hide');
 			getResults();
-			$('#pickLocation').tooltip('hide');
-			$('#pickDate').tooltip('hide');
-			$('#dropDate').tooltip('hide');
 		}
 	});
 
