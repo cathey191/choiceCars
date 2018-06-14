@@ -58,6 +58,8 @@ $(document).ready(function() {
 
 	today = yyyy + '-' + mm + '-' + dd;
 
+	console.dir(document.querySelector('.red-tooltip'));
+
 	// Increases and deceases number if people
 	function peopleButtons(e) {
 		var totalPpl = $('#totalPpl')[0];

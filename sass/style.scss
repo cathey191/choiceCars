@@ -163,10 +163,12 @@ option {
 
 // tooltip
 .tooltip-inner {
-	background-color: #56a54d !important;
-	/*!important is not necessary if you place custom.css at the end of your css calls. For the purpose of this demo, it seems to be required in SO snippet*/
-	color: $lightGray;
-	font-size: bold;
+	background-color: #56a54d;
+	color: $darkGray;
+}
+
+.bs-tooltip-top .arrow::before {
+	border-top-color: #56a54d;
 }
 
 @media only screen and (min-width: 375px) {
