@@ -56,8 +56,28 @@ $(document).ready(function() {
 	}
 	numberPpl.addEventListener('click', peopleButtons, false);
 
-	// page layout
+	// validation
 	$('#search').click(function() {
+		var pickLoc = $('#pickLocation')[0].value;
+		var pickDate = $('#pickDate')[0].value;
+		var dropDate = $('#dropDate')[0].value;
+		var totalPpl = $('#totalPpl')[0].innerText;
+		console.dir($('#pickDate')[0]);
+
+		// val pick location
+		if (pickLoc === 'Choose...') {
+			$('#pickLocation').tooltip('show');
+		} else if (pickDate === '') {
+			$('#pickDate').tooltip('show');
+		} else if (dropDate === '') {
+			$('#dropDate').tooltip('show');
+		} else {
+			getResults();
+		}
+	});
+
+	// page layout
+	function getResults() {
 		// inputs
 		var pickLoc = $('#pickLocation')[0].value;
 		var dropLoc = $('#dropLocation')[0].value;
@@ -110,26 +130,26 @@ $(document).ready(function() {
 				// change to the other page
 				$('.home').addClass('displayNone');
 				$('.results').removeClass('displayNone');
+
+				// map
+				mapboxgl.accessToken =
+					'pk.eyJ1IjoiY2F0aGV5MTkxIiwiYSI6ImNqaTNtb2o1ODAwNjgzcHF0ZWQxdmVtcTcifQ.BaXfgHPABUk6-kMMyyMNXQ';
+				var map = new mapboxgl.Map({
+					container: 'map', // container id
+					style: 'mapbox://styles/cathey191/cji3oxshg1lt72rkzkj9i7c0m',
+					center: [174.78, -41.279], // starting position
+					zoom: 12 // starting zoom
+				});
 			} else {
 				// console.log('fail');
 			}
 		}
-	});
+	}
 
 	// takes you to home page
 	$('#return').click(function() {
 		$('.result').remove();
 		$('.results').addClass('displayNone');
 		$('.home').removeClass('displayNone');
-	});
-
-	// map
-	mapboxgl.accessToken =
-		'pk.eyJ1IjoiY2F0aGV5MTkxIiwiYSI6ImNqaTNtb2o1ODAwNjgzcHF0ZWQxdmVtcTcifQ.BaXfgHPABUk6-kMMyyMNXQ';
-	var map = new mapboxgl.Map({
-		container: 'map', // container id
-		style: 'mapbox://styles/cathey191/cji3oxshg1lt72rkzkj9i7c0m',
-		center: [174.78, -41.279], // starting position
-		zoom: 12 // starting zoom
 	});
 });
