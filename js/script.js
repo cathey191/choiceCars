@@ -38,13 +38,17 @@ $(document).ready(function() {
 		var pickDate = $('#pickDate')[0].value;
 		var dropDate = $('#dropDate')[0].value;
 		var totalPpl = $('#totalPpl')[0].innerText;
+		$('[data-toggle="tooltip"]').tooltip('hide');
 
 		// val pick location, show tooltips
 		// pickup location
 		if (pickLoc === 'Choose...') {
 			$('#pickLocation').tooltip('show');
 			// pickup date
-		} else if (pickDate === '' || compareDates(today, pickDate) <= -1) {
+		} else if (pickDate === '') {
+			$('#pickDate').tooltip('show');
+		} else if (compareDates(today, pickDate) <= -1) {
+			$('#pickDate')[0].title = 'The past is unavailable';
 			$('#pickDate').tooltip('show');
 			// drop off date
 		} else if (dropDate === '' || compareDates(pickDate, dropDate) <= -1) {
@@ -119,17 +123,109 @@ $(document).ready(function() {
 				$('.home').addClass('displayNone');
 				$('.results').removeClass('displayNone');
 
-				// map
-				mapboxgl.accessToken =
-					'pk.eyJ1IjoiY2F0aGV5MTkxIiwiYSI6ImNqaTNtb2o1ODAwNjgzcHF0ZWQxdmVtcTcifQ.BaXfgHPABUk6-kMMyyMNXQ';
-				var map = new mapboxgl.Map({
-					container: 'map', // container id
-					style: 'mapbox://styles/cathey191/cji3oxshg1lt72rkzkj9i7c0m',
-					center: [174.78, -41.279], // starting position
-					zoom: 12 // starting zoom
-				});
+				mapLocation();
+
+				// // map
+				// mapboxgl.accessToken =
+				// 	'pk.eyJ1IjoiY2F0aGV5MTkxIiwiYSI6ImNqaTNtb2o1ODAwNjgzcHF0ZWQxdmVtcTcifQ.BaXfgHPABUk6-kMMyyMNXQ';
+				// var map = new mapboxgl.Map({
+				// 	container: 'map', // container id
+				// 	style: 'mapbox://styles/cathey191/cji3oxshg1lt72rkzkj9i7c0m',
+				// 	center: [174.78, -41.279], // starting position
+				// 	zoom: 10 // starting zoom
+				// });
 			}
 		}
+	}
+
+	function mapLocation() {
+		// map
+		mapboxgl.accessToken =
+			'pk.eyJ1IjoiY2F0aGV5MTkxIiwiYSI6ImNqaTNtb2o1ODAwNjgzcHF0ZWQxdmVtcTcifQ.BaXfgHPABUk6-kMMyyMNXQ';
+		var map = new mapboxgl.Map({
+			container: 'map', // container id
+			style: 'mapbox://styles/cathey191/cji3oxshg1lt72rkzkj9i7c0m',
+			center: [174.78, -41.279], // starting position
+			zoom: 3 // starting zoom
+		});
+
+		// // add markers to map
+		// geojson.features.forEach(function(marker) {
+		// 	// create a HTML element for each feature
+		// 	var el = document.createElement('div');
+		// 	el.className = 'marker';
+		//
+		// 	// make a marker for each feature and add to the map
+		// 	new mapboxgl.Marker(el).setLngLat(marker.geometry.coordinates).addTo(map);
+		// });
+
+		map.on('load', function() {
+			getRoute();
+		});
+	}
+
+	function getRoute() {
+		var start = [174.785, -37.0082];
+		var end = [174.8076, -41.3276];
+		var directionsRequest =
+			'https://api.mapbox.com/directions/v5/mapbox/cycling/' +
+			start[0] +
+			',' +
+			start[1] +
+			';' +
+			end[0] +
+			',' +
+			end[1] +
+			'?steps=true&geometries=geojson&access_token=' +
+			'mapboxgl.accessToken';
+		$.ajax({
+			method: 'GET',
+			url: directionsRequest
+		}).done(function(data) {
+			var route = data.routes[0].geometry;
+			map.addLayer({
+				id: 'route',
+				type: 'line',
+				source: {
+					type: 'geojson',
+					data: {
+						type: 'Feature',
+						geometry: route
+					}
+				},
+				paint: {
+					'line-width': 2
+				}
+			});
+			map.addLayer({
+				id: 'start',
+				type: 'drive',
+				source: {
+					type: 'geojson',
+					data: {
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: start
+						}
+					}
+				}
+			});
+			map.addLayer({
+				id: 'end',
+				type: 'drive',
+				source: {
+					type: 'geojson',
+					data: {
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: end
+						}
+					}
+				}
+			});
+		});
 	}
 
 	// takes you to home page

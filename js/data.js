@@ -36,3 +36,30 @@ var data = [
 		fuelKm: 17
 	})
 ];
+var geojson = {
+	type: 'FeatureCollection',
+	features: [
+		{
+			type: 'Feature',
+			geometry: {
+				type: 'Point',
+				coordinates: [174.785, -37.0082]
+			},
+			properties: {
+				title: 'Auckland',
+				description: 'Airport'
+			}
+		},
+		{
+			type: 'Feature',
+			geometry: {
+				type: 'Point',
+				coordinates: [174.8076, -41.3276]
+			},
+			properties: {
+				title: 'Wellington',
+				description: 'Airport'
+			}
+		}
+	]
+};
