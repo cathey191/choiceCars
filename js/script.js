@@ -96,7 +96,7 @@ $(document).ready(function() {
 		getResults: function() {
 			// if no vehicles fit, show alert
 			if (app.validation() === 'fail') {
-				console.log('fail');
+				// ALERT REQUIRED
 				// if there are vehicles, display vehicles
 			} else {
 				// change to the other page
@@ -104,7 +104,7 @@ $(document).ready(function() {
 				$('.results').removeClass('displayNone');
 
 				// runs creat map
-				app.mapLocation();
+				app.chart(app.mapLocation());
 			}
 		},
 
@@ -158,7 +158,6 @@ $(document).ready(function() {
 					app.globalElements.topper.insertAdjacentHTML('afterend', newVehicle);
 				} else {
 					numberFail.push(dataType);
-					console.dir(numberFail);
 				}
 			}
 
@@ -186,8 +185,8 @@ $(document).ready(function() {
 				'pk.eyJ1IjoiY2F0aGV5MTkxIiwiYSI6ImNqaTNtb2o1ODAwNjgzcHF0ZWQxdmVtcTcifQ.BaXfgHPABUk6-kMMyyMNXQ';
 			const map = new mapboxgl.Map({
 				container: 'map', // container id
-				style: 'mapbox://styles/mapbox/streets-v10',
-				center: [174.78, -41.279],
+				style: 'mapbox://styles/cathey191/cji3oxshg1lt72rkzkj9i7c0m',
+				center: [172.78, -41.279],
 				zoom: 3 // starting zoom
 			});
 
@@ -208,7 +207,6 @@ $(document).ready(function() {
 					method: 'GET',
 					url: directionsRequest
 				}).done(function(data) {
-					// console.dir(data.routes[0].distance / 1000 + 'kms');
 					var route = data.routes[0].geometry;
 					map.addLayer({
 						id: 'route',
@@ -253,6 +251,50 @@ $(document).ready(function() {
 						}
 					});
 				});
+			});
+		},
+
+		chart: function() {
+			var ctx = document.getElementById('myChart').getContext('2d');
+			var myChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+					datasets: [
+						{
+							label: '# of Votes',
+							data: [12, 19, 3, 5, 2, 3],
+							backgroundColor: [
+								'rgba(255, 99, 132, 0.2)',
+								'rgba(54, 162, 235, 0.2)',
+								'rgba(255, 206, 86, 0.2)',
+								'rgba(75, 192, 192, 0.2)',
+								'rgba(153, 102, 255, 0.2)',
+								'rgba(255, 159, 64, 0.2)'
+							],
+							borderColor: [
+								'rgba(255,99,132,1)',
+								'rgba(54, 162, 235, 1)',
+								'rgba(255, 206, 86, 1)',
+								'rgba(75, 192, 192, 1)',
+								'rgba(153, 102, 255, 1)',
+								'rgba(255, 159, 64, 1)'
+							],
+							borderWidth: 1
+						}
+					]
+				},
+				options: {
+					scales: {
+						yAxes: [
+							{
+								ticks: {
+									beginAtZero: true
+								}
+							}
+						]
+					}
+				}
 			});
 		},
 
