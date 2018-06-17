@@ -92,8 +92,24 @@ $(document).ready(function() {
 			return diffDays;
 		},
 
-		// creates results
+		// runs validation to see if any vehicles fit the requirements
 		getResults: function() {
+			// if no vehicles fit, show alert
+			if (app.validation() === 'fail') {
+				console.log('fail');
+				// if there are vehicles, display vehicles
+			} else {
+				// change to the other page
+				$('.home').addClass('displayNone');
+				$('.results').removeClass('displayNone');
+
+				// runs creat map
+				app.mapLocation();
+			}
+		},
+
+		// validation
+		validation: function() {
 			// inputs
 			var pickLoc = $('#pickLocation')[0].value;
 			var dropLoc = $('#dropLocation')[0].value;
@@ -102,10 +118,13 @@ $(document).ready(function() {
 			var totalPpl = $('#totalPpl')[0].innerText;
 			// days
 			var diffDays = app.compareDates(pickDate, dropDate);
+			// counts fails
+			var numberFail = [];
 
 			// results
 			for (var i = 0; i < data.length; i++) {
 				var dataType = data[i].type;
+				var dataImg = data[i].img;
 
 				// people
 				if (
@@ -114,9 +133,8 @@ $(document).ready(function() {
 					data[i].minDay <= diffDays &&
 					data[i].maxDay >= diffDays
 				) {
-					var newVehicle = '<div class="section result">';
-					newVehicle +=
-						'<button class="btn btn-outline-secondary greeenButton floatRight" >Book</button>';
+					var newVehicle = '<div class="section result row">';
+					newVehicle += '<div class="col-8">';
 					newVehicle += '<h3 class="title">' + dataType + '</h3>';
 					newVehicle +=
 						'<p class="stats">Manual<br />Special Licence Required<br />' +
@@ -130,16 +148,25 @@ $(document).ready(function() {
 						data[i].maxSeat +
 						'</h5>';
 					newVehicle += '<i class="fas fa-user"></i>';
-					newVehicle += '</div>';
-					newVehicle += '</div>';
+					newVehicle += '</div></div>';
+					newVehicle += '<div class="col-4 iconButton">';
+					newVehicle +=
+						'<img class="icon" src="img/' + dataImg + '.svg" alt="large car">';
+					newVehicle +=
+						'<button class="btn btn-outline-secondary greeenButton pBottom" >Book</button>';
+					newVehicle += '</div></div>';
 					app.globalElements.topper.insertAdjacentHTML('afterend', newVehicle);
+				} else {
+					numberFail.push(dataType);
+					console.dir(numberFail);
 				}
 			}
-			// change to the other page
-			$('.home').addClass('displayNone');
-			$('.results').removeClass('displayNone');
 
-			app.mapLocation();
+			if (numberFail.length === 4) {
+				return 'fail';
+			} else {
+				return 'pass';
+			}
 		},
 
 		// creates map
@@ -194,7 +221,7 @@ $(document).ready(function() {
 							}
 						},
 						paint: {
-							'line-width': 5
+							'line-width': 2
 						}
 					});
 					map.addLayer({

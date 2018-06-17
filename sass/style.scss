@@ -123,6 +123,17 @@ option {
 	cursor: pointer;
 }
 
+.col-4 {
+	position: relative;
+	text-align: center;
+}
+
+.pBottom {
+	position: absolute;
+	bottom: 0;
+	right: 16px;
+}
+
 .statPeople {
 	display: flex;
 	align-items: center;

@@ -1,6 +1,7 @@
 var data = [
 	(motorbike = {
 		type: 'Motorbike',
+		img: 'motorbike',
 		mixSeat: 1,
 		maxSeat: 1,
 		price: 109,
@@ -10,6 +11,7 @@ var data = [
 	}),
 	(smallCar = {
 		type: 'Small Car',
+		img: 'smallCar',
 		mixSeat: 1,
 		maxSeat: 2,
 		price: 129,
@@ -19,6 +21,7 @@ var data = [
 	}),
 	(largeCar = {
 		type: 'Large Car',
+		img: 'largeCar',
 		mixSeat: 1,
 		maxSeat: 5,
 		price: 144,
@@ -28,6 +31,7 @@ var data = [
 	}),
 	(motorhome = {
 		type: 'Motorhome',
+		img: 'motorhome',
 		mixSeat: 2,
 		maxSeat: 6,
 		price: 200,
