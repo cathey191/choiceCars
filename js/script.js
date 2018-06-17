@@ -82,6 +82,7 @@ $(document).ready(function() {
 				app.getResults();
 			}
 		},
+
 		// compares dates, to find total number
 		compareDates: function(startDate, endDate) {
 			var date1 = new Date(startDate);
@@ -90,6 +91,7 @@ $(document).ready(function() {
 			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 			return diffDays;
 		},
+
 		// creates results
 		getResults: function() {
 			// inputs
@@ -100,11 +102,6 @@ $(document).ready(function() {
 			var totalPpl = $('#totalPpl')[0].innerText;
 			// days
 			var diffDays = app.compareDates(pickDate, dropDate);
-
-			// Resets location for drop off to the same as pickup
-			if (dropLoc === '0') {
-				dropLoc = pickLoc;
-			}
 
 			// results
 			for (var i = 0; i < data.length; i++) {
@@ -136,17 +133,28 @@ $(document).ready(function() {
 					newVehicle += '</div>';
 					newVehicle += '</div>';
 					app.globalElements.topper.insertAdjacentHTML('afterend', newVehicle);
-
-					// change to the other page
-					$('.home').addClass('displayNone');
-					$('.results').removeClass('displayNone');
-
-					app.mapLocation();
 				}
 			}
+			// change to the other page
+			$('.home').addClass('displayNone');
+			$('.results').removeClass('displayNone');
+
+			app.mapLocation();
 		},
+
+		// creates map
 		mapLocation: function() {
-			// map
+			// get locations from inputs
+			var pickLoc = $('#pickLocation')[0].value;
+			var dropLoc = $('#dropLocation')[0].value;
+			if (dropLoc === '0') {
+				dropLoc = pickLoc;
+			}
+			// gets coordinates from data.js
+			var start = geojson[pickLoc].coordinates;
+			var end = geojson[dropLoc].coordinates;
+
+			// creates map
 			mapboxgl.accessToken =
 				'pk.eyJ1IjoiY2F0aGV5MTkxIiwiYSI6ImNqaTNtb2o1ODAwNjgzcHF0ZWQxdmVtcTcifQ.BaXfgHPABUk6-kMMyyMNXQ';
 			const map = new mapboxgl.Map({
@@ -158,8 +166,6 @@ $(document).ready(function() {
 
 			// adds route
 			map.on('load', function() {
-				var start = [174.8076, -41.3276];
-				var end = [174.785, -37.0082];
 				var directionsRequest =
 					'https://api.mapbox.com/directions/v5/mapbox/driving/' +
 					start[0] +
@@ -175,7 +181,7 @@ $(document).ready(function() {
 					method: 'GET',
 					url: directionsRequest
 				}).done(function(data) {
-					console.dir(data.routes[0].distance / 1000 + 'kms');
+					// console.dir(data.routes[0].distance / 1000 + 'kms');
 					var route = data.routes[0].geometry;
 					map.addLayer({
 						id: 'route',
@@ -222,6 +228,7 @@ $(document).ready(function() {
 				});
 			});
 		},
+
 		// return to search page
 		returnHome: function() {
 			$('.result').remove();
@@ -230,5 +237,6 @@ $(document).ready(function() {
 		}
 	};
 
+	// runs all event listners
 	app.eventListener();
 });

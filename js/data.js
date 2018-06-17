@@ -37,17 +37,32 @@ var data = [
 	})
 ];
 var geojson = {
-	type: 'FeatureCollection',
-	features: [
-		{
-			location: 'Auckland',
-			type: 'Airport',
-			coordinates: [174.785, -37.0082]
-		},
-		{
-			location: 'Wellington',
-			type: 'Airport',
-			coordinates: [174.8076, -41.3276]
-		}
-	]
+	Auckland: {
+		type: 'Airport',
+		coordinates: [174.785, -37.0082]
+	},
+	Taupo: {
+		type: 'City Center',
+		coordinates: [175.915, -38.7916]
+	},
+	Wellington: {
+		type: 'Airport',
+		coordinates: [174.8076, -41.3276]
+	},
+	Picton: {
+		type: 'Port',
+		coordinates: [174.001, -41.2906]
+	},
+	Dunedin: {
+		type: 'Airport',
+		coordinates: [170.2022, -45.9259]
+	},
+	ChristChurch: {
+		type: 'Airport',
+		coordinates: [172.5369, -43.4864]
+	},
+	Queenstown: {
+		type: 'Airport',
+		coordinates: [168.7399, -45.021]
+	}
 };
