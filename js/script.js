@@ -6,6 +6,7 @@ $(document).ready(function() {
 			search: $('#search')[0],
 			return: $('#return')[0],
 			topper: $('.topper')[0],
+			vehicleOptions: [],
 			// gets today's date, changes format
 			dateToday: function() {
 				var today = new Date();
@@ -105,7 +106,6 @@ $(document).ready(function() {
 
 				// runs creat map
 				app.mapLocation();
-				app.chart();
 			}
 		},
 
@@ -156,6 +156,7 @@ $(document).ready(function() {
 					newVehicle +=
 						'<button class="btn btn-outline-secondary greeenButton pBottom" >Book</button>';
 					newVehicle += '</div></div>';
+					app.globalElements.vehicleOptions.push(dataType);
 					app.globalElements.topper.insertAdjacentHTML('afterend', newVehicle);
 				} else {
 					numberFail.push(dataType);
@@ -208,7 +209,7 @@ $(document).ready(function() {
 					method: 'GET',
 					url: directionsRequest
 				}).done(function(data) {
-					// console.dir(data.routes[0].distance / 1000 + 'kms');
+					app.chart(data.routes[0].distance / 1000);
 					var route = data.routes[0].geometry;
 					map.addLayer({
 						id: 'route',
@@ -255,16 +256,30 @@ $(document).ready(function() {
 				});
 			});
 		},
-		chart: function() {
-			var ctx = document.getElementById('myChart').getContext('2d');
-			var myChart = new Chart(ctx, {
+
+		// creates chart
+		chart: function(distance) {
+			var distance = Math.ceil(distance);
+			var vehicleOptions = app.globalElements.vehicleOptions;
+			var price = [];
+
+			for (var i = 0; i < vehicleOptions.length; i++) {
+				var dataType = data[i].type;
+				if (dataType === vehicleOptions[i]) {
+					price.push(data[i].price);
+				}
+			}
+
+			console.log(distance);
+			var ctx = document.getElementById('chart').getContext('2d');
+			var chart = new Chart(ctx, {
 				type: 'bar',
 				data: {
-					labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+					labels: vehicleOptions,
 					datasets: [
 						{
-							label: '# of Votes',
-							data: [12, 19, 3, 5, 2, 3],
+							label: 'Price Per 100km',
+							data: price,
 							backgroundColor: [
 								'rgba(255, 99, 132, 0.2)',
 								'rgba(54, 162, 235, 0.2)',
@@ -301,6 +316,7 @@ $(document).ready(function() {
 
 		// return to search page
 		returnHome: function() {
+			app.globalElements.vehicleOptions = [];
 			$('.result').remove();
 			$('.results').addClass('displayNone');
 			$('.home').removeClass('displayNone');
