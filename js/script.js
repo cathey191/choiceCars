@@ -186,7 +186,7 @@ $(document).ready(function() {
 				'pk.eyJ1IjoiY2F0aGV5MTkxIiwiYSI6ImNqaTNtb2o1ODAwNjgzcHF0ZWQxdmVtcTcifQ.BaXfgHPABUk6-kMMyyMNXQ';
 			const map = new mapboxgl.Map({
 				container: 'map', // container id
-				style: 'mapbox://styles/mapbox/streets-v10',
+				style: 'mapbox://styles/cathey191/cji3oxshg1lt72rkzkj9i7c0m',
 				center: [174.78, -41.279],
 				zoom: 3 // starting zoom
 			});
