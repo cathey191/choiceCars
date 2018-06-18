@@ -96,7 +96,7 @@ $(document).ready(function() {
 		getResults: function() {
 			// if no vehicles fit, show alert
 			if (app.validation() === 'fail') {
-				console.log('fail');
+				// console.log('fail');
 				// if there are vehicles, display vehicles
 			} else {
 				// change to the other page
@@ -158,7 +158,6 @@ $(document).ready(function() {
 					app.globalElements.topper.insertAdjacentHTML('afterend', newVehicle);
 				} else {
 					numberFail.push(dataType);
-					console.dir(numberFail);
 				}
 			}
 

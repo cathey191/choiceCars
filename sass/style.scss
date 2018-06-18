@@ -12,10 +12,15 @@ label {
 
 h3 {
 	font-weight: bold;
+	font-size: 1.5em;
 }
 
 option {
 	color: $darkGray;
+}
+
+p {
+	line-height: 20px;
 }
 
 // Page layout
