@@ -6,3 +6,9 @@ $darkGray: #2f3c3b;
 	color: $darkGray;
 	border-color: #21302b;
 }
+
+@mixin logo {
+	text-align: center;
+	line-height: 1em;
+	margin: 0 auto;
+}

@@ -104,9 +104,21 @@ option {
   border-radius: 50%;
   cursor: pointer; }
 
+.headerTitle {
+  font-family: 'Heebo', sans-serif;
+  text-align: center;
+  line-height: 1em;
+  margin: 0 auto; }
+
+.title {
+  font-family: 'Heebo', sans-serif; }
+
 .col-4 {
   position: relative;
   text-align: center; }
+
+.icon {
+  max-height: 100px; }
 
 .pBottom {
   position: absolute;

@@ -123,9 +123,22 @@ option {
 	cursor: pointer;
 }
 
+.headerTitle {
+	font-family: 'Heebo', sans-serif;
+	@include logo;
+}
+
+.title {
+	font-family: 'Heebo', sans-serif;
+}
+
 .col-4 {
 	position: relative;
 	text-align: center;
+}
+
+.icon {
+	max-height: 100px;
 }
 
 .pBottom {
@@ -163,9 +176,7 @@ option {
 .logo {
 	font-family: 'Signika', sans-serif;
 	color: #d6f0ec;
-	text-align: center;
-	line-height: 1em;
-	margin: 0 auto;
+	@include logo;
 }
 
 .fa-arrow-left {
