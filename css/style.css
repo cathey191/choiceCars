@@ -103,6 +103,9 @@ p {
   height: 100%;
   max-height: 222px; }
 
+#chart {
+  align-self: center; }
+
 .marker {
   background-image: url("mapbox-icon.png");
   background-size: cover;
@@ -127,6 +130,9 @@ p {
 .col-6 {
   margin: 0px;
   padding: 0px; }
+
+.col-6:nth-of-type(2) {
+  display: flex; }
 
 .icon {
   max-height: 85px; }

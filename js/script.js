@@ -7,6 +7,7 @@ $(document).ready(function() {
 			return: $('#return')[0],
 			topper: $('.topper')[0],
 			vehicleOptions: [],
+			diffDays: 0,
 			// gets today's date, changes format
 			dateToday: function() {
 				var today = new Date();
@@ -118,7 +119,8 @@ $(document).ready(function() {
 			var dropDate = $('#dropDate')[0].value;
 			var totalPpl = $('#totalPpl')[0].innerText;
 			// days
-			var diffDays = app.compareDates(pickDate, dropDate);
+			app.globalElements.diffDays = app.compareDates(pickDate, dropDate);
+			var diffDays = app.globalElements.diffDays;
 			// counts fails
 			var numberFail = [];
 
@@ -152,7 +154,11 @@ $(document).ready(function() {
 					newVehicle += '</div></div>';
 					newVehicle += '<div class="col-4 iconButton">';
 					newVehicle +=
-						'<img class="icon" src="img/' + dataImg + '.svg" alt="large car">';
+						'<img class="icon" src="img/' +
+						dataImg +
+						'.svg" alt="' +
+						dataType +
+						'">';
 					newVehicle +=
 						'<button class="btn btn-outline-secondary greeenButton pBottom" >Book</button>';
 					newVehicle += '</div></div>';
@@ -263,14 +269,17 @@ $(document).ready(function() {
 			var vehicleOptions = app.globalElements.vehicleOptions;
 			var price = [];
 
-			for (var i = 0; i < vehicleOptions.length; i++) {
+			for (var i = 0; i < data.length; i++) {
 				var dataType = data[i].type;
 				if (dataType === vehicleOptions[i]) {
 					price.push(data[i].price);
 				}
 			}
 
-			console.log(distance);
+			$.each(price, function(index, value) {
+				price[index] = Math.ceil(value * app.globalElements.diffDays);
+			});
+
 			var ctx = document.getElementById('chart').getContext('2d');
 			var chart = new Chart(ctx, {
 				type: 'bar',
@@ -278,7 +287,7 @@ $(document).ready(function() {
 					labels: vehicleOptions,
 					datasets: [
 						{
-							label: 'Price Per 100km',
+							label: 'Total Price in NZD',
 							data: price,
 							backgroundColor: [
 								'rgba(255, 99, 132, 0.2)',
@@ -316,6 +325,7 @@ $(document).ready(function() {
 
 		// return to search page
 		returnHome: function() {
+			app.globalElements.diffDays = 0;
 			app.globalElements.vehicleOptions = [];
 			$('.result').remove();
 			$('.results').addClass('displayNone');
