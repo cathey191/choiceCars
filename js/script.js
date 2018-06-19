@@ -7,6 +7,7 @@ $(document).ready(function() {
 			return: $('#return')[0],
 			topper: $('.topper')[0],
 			vehicleOptions: [],
+			distance: 0,
 			diffDays: 0,
 			// gets today's date, changes format
 			dateToday: function() {
@@ -87,6 +88,7 @@ $(document).ready(function() {
 
 		// compares dates, to find total number
 		compareDates: function(startDate, endDate) {
+			console.log(typeof startDate);
 			var date1 = new Date(startDate);
 			var date2 = new Date(endDate);
 			var timeDiff = date2.getTime() - date1.getTime();
@@ -105,9 +107,9 @@ $(document).ready(function() {
 				$('.home').addClass('displayNone');
 				$('.results').removeClass('displayNone');
 
-				// runs creat map
-				app.chart();
+				// runs create map then chart
 				app.mapLocation();
+				app.chart();
 			}
 		},
 
@@ -217,6 +219,7 @@ $(document).ready(function() {
 					url: directionsRequest
 				}).done(function(data) {
 					var route = data.routes[0].geometry;
+					app.globalElements.distance = data.routes[0].distance;
 					map.addLayer({
 						id: 'route',
 						type: 'line',
@@ -288,10 +291,10 @@ $(document).ready(function() {
 					labels: vehicleOptions,
 					datasets: [
 						{
-							label: 'Total Price in NZD',
+							label: 'Total Price Per Day in NZD',
 							data: price,
-							backgroundColor: ['#56a54d', '#3d733f', '#a6bbb8'],
-							borderColor: ['#3d733f', '#2f3c3b', '#21302b'],
+							backgroundColor: ['#a6bbb8', '#7E929A', '#70868F'],
+							borderColor: ['#2f3c3b', '#2f3c3b', '#21302b'],
 							borderWidth: 1
 						}
 					]
@@ -321,6 +324,22 @@ $(document).ready(function() {
 								}
 							}
 						]
+					},
+					// legend: false,
+					tooltips: {
+						enabled: false
+					},
+					plugins: {
+						datalabels: {
+							color: '#2f3c3b',
+							display: function(context) {
+								return context.dataset.data[context.dataIndex] > 15;
+							},
+							font: {
+								weight: 'bold'
+							},
+							formatter: Math.round
+						}
 					}
 				}
 			});
@@ -328,6 +347,7 @@ $(document).ready(function() {
 
 		// return to search page
 		returnHome: function() {
+			app.globalElements.distance = 0;
 			app.globalElements.diffDays = 0;
 			app.globalElements.vehicleOptions = [];
 			$('.result').remove();
