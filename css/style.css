@@ -59,6 +59,9 @@ p {
   justify-content: center;
   align-items: center; }
 
+.modal-content {
+  background-color: #2f3c3b; }
+
 .dateInput {
   width: auto;
   background-color: #a6bbb8;

@@ -98,7 +98,7 @@ $(document).ready(function() {
 		getResults: function() {
 			// if no vehicles fit, show alert
 			if (app.validation() === 'fail') {
-				// console.log('fail');
+				$('#noVehModal').modal('show');
 				// if there are vehicles, display vehicles
 			} else {
 				// change to the other page
@@ -106,6 +106,7 @@ $(document).ready(function() {
 				$('.results').removeClass('displayNone');
 
 				// runs creat map
+				app.chart();
 				app.mapLocation();
 			}
 		},
@@ -136,6 +137,7 @@ $(document).ready(function() {
 					data[i].minDay <= diffDays &&
 					data[i].maxDay >= diffDays
 				) {
+					app.globalElements.vehicleOptions.push(dataType);
 					var newVehicle = '<div class="section result row">';
 					newVehicle += '<div class="col-8">';
 					newVehicle += '<h3 class="title">' + dataType + '</h3>';
@@ -162,7 +164,6 @@ $(document).ready(function() {
 					newVehicle +=
 						'<button class="btn btn-outline-secondary greeenButton pBottom" >Book</button>';
 					newVehicle += '</div></div>';
-					app.globalElements.vehicleOptions.push(dataType);
 					app.globalElements.topper.insertAdjacentHTML('afterend', newVehicle);
 				} else {
 					numberFail.push(dataType);
@@ -215,7 +216,6 @@ $(document).ready(function() {
 					method: 'GET',
 					url: directionsRequest
 				}).done(function(data) {
-					app.chart(data.routes[0].distance / 1000);
 					var route = data.routes[0].geometry;
 					map.addLayer({
 						id: 'route',
@@ -264,8 +264,7 @@ $(document).ready(function() {
 		},
 
 		// creates chart
-		chart: function(distance) {
-			var distance = Math.ceil(distance);
+		chart: function() {
 			var vehicleOptions = app.globalElements.vehicleOptions;
 			var price = [];
 

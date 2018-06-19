@@ -75,6 +75,10 @@ p {
 	align-items: center;
 }
 
+.modal-content {
+	background-color: $darkGray;
+}
+
 //Input styling
 .dateInput {
 	width: auto;
