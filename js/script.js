@@ -270,8 +270,10 @@ $(document).ready(function() {
 
 			for (var i = 0; i < data.length; i++) {
 				var dataType = data[i].type;
-				if (dataType === vehicleOptions[i]) {
-					price.push(data[i].price);
+				for (var j = 0; j < vehicleOptions.length; j++) {
+					if (dataType === vehicleOptions[j]) {
+						price.push(data[i].price);
+					}
 				}
 			}
 
