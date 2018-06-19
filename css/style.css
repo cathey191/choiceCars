@@ -13,7 +13,8 @@ option {
   color: #2f3c3b; }
 
 p {
-  line-height: 20px; }
+  line-height: 23px;
+  font-size: large; }
 
 .main {
   background-color: #2f3c3b; }
@@ -41,7 +42,8 @@ p {
   height: 25vh;
   max-height: 222px;
   max-width: 1000px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  border-bottom: 1px solid #a6bbb8; }
 
 .section {
   border-top: 1px solid #a6bbb8;
@@ -135,7 +137,12 @@ p {
   padding: 0px; }
 
 .col-6:nth-of-type(2) {
-  display: flex; }
+  display: flex;
+  flex: 0 0 60%;
+  max-width: none; }
+
+.col-6:nth-of-type(1) {
+  flex: 0 0 40%; }
 
 .icon {
   max-height: 85px; }
@@ -203,13 +210,23 @@ p {
     display: inline-flex; }
 
   .dateTwo {
-    padding-left: 2em; } }
-@media only screen and (max-width: 500px) {
-  .col-6:nth-of-type(1) {
-    flex: 0 0 40%; }
+    padding-left: 2em; }
 
+  .col-6:nth-of-type(1),
   .col-6:nth-of-type(2) {
-    flex: 0 0 60%;
-    max-width: none; } }
+    flex: 0 0 50%; } }
+@media only screen and (min-width: 1000px) {
+  .result {
+    max-width: 750px;
+    margin: 0 auto; }
+
+  .pBottom {
+    position: fixed;
+    bottom: unset;
+    right: unset;
+    margin-top: 0.75em; }
+
+  .icon {
+    width: fit-content; } }
 
 /*# sourceMappingURL=style.css.map */

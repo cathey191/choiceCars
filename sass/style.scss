@@ -20,7 +20,8 @@ option {
 }
 
 p {
-	line-height: 20px;
+	line-height: 23px;
+	font-size: large;
 }
 
 // Page layout
@@ -54,6 +55,7 @@ p {
 	max-height: 222px;
 	max-width: 1000px;
 	margin: 0 auto;
+	border-bottom: 1px solid $lightGray;
 }
 
 .section {
@@ -99,8 +101,8 @@ p {
 }
 
 .greeenButton {
-	background-color: #56a54d;
-	border-color: #3d733f;
+	background-color: $lightGreen;
+	border-color: $darkGreen;
 	height: 2em;
 	font-size: 1.5em;
 	font-weight: bold;
@@ -159,6 +161,12 @@ p {
 }
 .col-6:nth-of-type(2) {
 	display: flex;
+	flex: 0 0 60%;
+	max-width: none;
+}
+
+.col-6:nth-of-type(1) {
+	flex: 0 0 40%;
 }
 
 .icon {
@@ -218,12 +226,12 @@ p {
 
 // tooltip
 .tooltip-inner {
-	background-color: #56a54d;
+	background-color: $lightGreen;
 	color: $darkGray;
 }
 
 .bs-tooltip-top .arrow::before {
-	border-top-color: #56a54d;
+	border-top-color: $lightGreen;
 }
 
 @media only screen and (min-width: 375px) {
@@ -246,14 +254,27 @@ p {
 	.dateTwo {
 		padding-left: 2em;
 	}
+
+	.col-6:nth-of-type(1),
+	.col-6:nth-of-type(2) {
+		flex: 0 0 50%;
+	}
 }
 
-@media only screen and (max-width: 500px) {
-	.col-6:nth-of-type(1) {
-		flex: 0 0 40%;
+@media only screen and (min-width: 1000px) {
+	.result {
+		max-width: 750px;
+		margin: 0 auto;
 	}
-	.col-6:nth-of-type(2) {
-		flex: 0 0 60%;
-		max-width: none;
+
+	.pBottom {
+		position: fixed;
+		bottom: unset;
+		right: unset;
+		margin-top: 0.75em;
+	}
+
+	.icon {
+		width: fit-content;
 	}
 }
