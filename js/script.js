@@ -294,29 +294,24 @@ $(document).ready(function() {
 			}
 
 			// multiplies all in price array by the amount of days
-			$.each(price, function(index, value) {
-				price[index] = Math.ceil(value * app.globalElements.diffDays);
-			});
+			app.test(price, app.globalElements.diffDays);
 
 			// multiplies all in fuel array by distance (in km)
-			$.each(fuelKm, function(index, value) {
-				fuelKm[index] = Math.ceil(value * distance);
-			});
+			app.test(fuelKm, distance);
 
 			// multiplies all in fuel array by 2 ($2 is the example fuel rate)
-			$.each(fuelKm, function(index, value) {
-				fuelKm[index] = Math.ceil(value * 2);
-			});
+			app.test(fuelKm, 2);
 
 			// creates chart
 			var ctx = document.getElementById('chart').getContext('2d');
+			console.dir(ctx);
 			var chart = new Chart(ctx, {
 				type: 'bar',
 				data: {
 					labels: vehicleOptions,
 					datasets: [
 						{
-							label: 'Total Price Per Day',
+							label: 'Total Days',
 							data: price,
 							backgroundColor: '#a6bbb8',
 							borderColor: '#2f3c3b',
@@ -380,6 +375,12 @@ $(document).ready(function() {
 						}
 					}
 				}
+			});
+		},
+
+		test: function(array, multiply) {
+			$.each(array, function(index, value) {
+				array[index] = Math.ceil(value * multiply);
 			});
 		},
 
