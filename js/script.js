@@ -88,7 +88,6 @@ $(document).ready(function() {
 
 		// compares dates, to find total number
 		compareDates: function(startDate, endDate) {
-			console.log(typeof startDate);
 			var date1 = new Date(startDate);
 			var date2 = new Date(endDate);
 			var timeDiff = date2.getTime() - date1.getTime();
@@ -109,7 +108,6 @@ $(document).ready(function() {
 
 				// runs create map then chart
 				app.mapLocation();
-				app.chart();
 			}
 		},
 
@@ -219,7 +217,9 @@ $(document).ready(function() {
 					url: directionsRequest
 				}).done(function(data) {
 					var route = data.routes[0].geometry;
-					app.globalElements.distance = data.routes[0].distance;
+					app.globalElements.distance = data.routes[0].distance / 1000;
+
+					app.chart();
 					map.addLayer({
 						id: 'route',
 						type: 'line',
@@ -270,18 +270,29 @@ $(document).ready(function() {
 		chart: function() {
 			var vehicleOptions = app.globalElements.vehicleOptions;
 			var price = [];
+			var distance = app.globalElements.distance / 100;
+			var fuelKm = [];
 
 			for (var i = 0; i < data.length; i++) {
 				var dataType = data[i].type;
 				for (var j = 0; j < vehicleOptions.length; j++) {
 					if (dataType === vehicleOptions[j]) {
 						price.push(data[i].price);
+						fuelKm.push(data[i].fuelKm);
 					}
 				}
 			}
 
 			$.each(price, function(index, value) {
 				price[index] = Math.ceil(value * app.globalElements.diffDays);
+			});
+
+			$.each(fuelKm, function(index, value) {
+				fuelKm[index] = Math.ceil(value * distance);
+			});
+
+			$.each(fuelKm, function(index, value) {
+				fuelKm[index] = Math.ceil(value * 2);
 			});
 
 			var ctx = document.getElementById('chart').getContext('2d');
@@ -291,10 +302,17 @@ $(document).ready(function() {
 					labels: vehicleOptions,
 					datasets: [
 						{
-							label: 'Total Price Per Day in NZD',
+							label: 'Price Per Day',
 							data: price,
-							backgroundColor: ['#a6bbb8', '#7E929A', '#70868F'],
-							borderColor: ['#2f3c3b', '#2f3c3b', '#21302b'],
+							backgroundColor: '#a6bbb8',
+							borderColor: '#2f3c3b',
+							borderWidth: 1
+						},
+						{
+							label: 'Fuel Cost',
+							data: fuelKm,
+							backgroundColor: '#7E929A',
+							borderColor: '#2f3c3b',
 							borderWidth: 1
 						}
 					]
@@ -313,7 +331,9 @@ $(document).ready(function() {
 									fontColor: '#a6bbb8',
 									fontSize: 11,
 									beginAtZero: true
-								}
+								},
+
+								stacked: true
 							}
 						],
 						xAxes: [
@@ -321,14 +341,14 @@ $(document).ready(function() {
 								ticks: {
 									fontColor: '#a6bbb8',
 									fontSize: 11
-								}
+								},
+								stacked: true
 							}
 						]
 					},
-					// legend: false,
-					tooltips: {
-						enabled: false
-					},
+					// tooltips: {
+					// 	enabled: false
+					// },
 					plugins: {
 						datalabels: {
 							color: '#2f3c3b',
