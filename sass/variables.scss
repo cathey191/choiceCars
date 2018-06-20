@@ -14,3 +14,9 @@ $darkGreen: #3d733f;
 	line-height: 1em;
 	margin: 0 auto;
 }
+
+@mixin sections {
+	padding: 10px;
+	margin: 0px;
+	background-color: $darkGray;
+}

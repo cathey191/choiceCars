@@ -19,9 +19,9 @@ gulp.task('serve', function(event) {
 //Styles Task
 gulp.task('styles', function() {
 	gulp
-		.src('sass/**/custom.scss')
-		.pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
-		.pipe(rename({ suffix: '.min' }))
+		.src('sass/**/style.scss')
+		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+		.pipe(rename({suffix: '.min'}))
 		.pipe(minifyCss())
 		.pipe(gulp.dest('css/'))
 		.pipe(connect.reload());

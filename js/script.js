@@ -9,6 +9,7 @@ $(document).ready(function() {
 			vehicleOptions: [],
 			distance: 0,
 			diffDays: 0,
+
 			// gets today's date, changes format
 			dateToday: function() {
 				var today = new Date();
@@ -25,6 +26,7 @@ $(document).ready(function() {
 				return today;
 			}
 		},
+
 		// all event listners
 		eventListener: function() {
 			app.globalElements.numberPpl.addEventListener(
@@ -43,6 +45,7 @@ $(document).ready(function() {
 				false
 			);
 		},
+
 		// increase/deceases people
 		peopleButtons: function(e) {
 			var totalPpl = $('#totalPpl')[0];
@@ -53,6 +56,8 @@ $(document).ready(function() {
 				totalPpl.innerText = pplToNumber - 1;
 			}
 		},
+
+		// starts run of all process
 		searchButton: function() {
 			var pickLoc = $('#pickLocation')[0].value;
 			var pickDate = $('#pickDate')[0].value;
@@ -144,7 +149,7 @@ $(document).ready(function() {
 					newVehicle +=
 						'<p class="stats">Manual<br />Special Licence Required<br />' +
 						data[i].fuelKm +
-						' / 100km</p>';
+						'L / 100km</p>';
 					newVehicle += '<div class="statPeople">';
 					newVehicle +=
 						'<h5 class="numberPpl">' +
@@ -268,33 +273,39 @@ $(document).ready(function() {
 
 		// creates chart
 		chart: function() {
+			// gets/holds required data
 			var vehicleOptions = app.globalElements.vehicleOptions;
 			var price = [];
 			var distance = app.globalElements.distance / 100;
 			var fuelKm = [];
 
+			// gets data for the vehicles that fit the requirements
 			for (var i = 0; i < data.length; i++) {
 				var dataType = data[i].type;
 				for (var j = 0; j < vehicleOptions.length; j++) {
 					if (dataType === vehicleOptions[j]) {
-						price.push(data[i].price);
-						fuelKm.push(data[i].fuelKm);
+						price.push(data[i].price); // cost of vehicle per day
+						fuelKm.push(data[i].fuelKm); // cost of L of fuel per 100km
 					}
 				}
 			}
 
+			// multiplies all in price array by the amount of days
 			$.each(price, function(index, value) {
 				price[index] = Math.ceil(value * app.globalElements.diffDays);
 			});
 
+			// multiplies all in fuel array by distance (in km)
 			$.each(fuelKm, function(index, value) {
 				fuelKm[index] = Math.ceil(value * distance);
 			});
 
+			// multiplies all in fuel array by 2 ($2 is the example feul rate)
 			$.each(fuelKm, function(index, value) {
 				fuelKm[index] = Math.ceil(value * 2);
 			});
 
+			// creates chart
 			var ctx = document.getElementById('chart').getContext('2d');
 			var chart = new Chart(ctx, {
 				type: 'bar',
@@ -302,7 +313,7 @@ $(document).ready(function() {
 					labels: vehicleOptions,
 					datasets: [
 						{
-							label: 'Price Per Day',
+							label: 'Total Price Per Day',
 							data: price,
 							backgroundColor: '#a6bbb8',
 							borderColor: '#2f3c3b',
@@ -324,6 +335,13 @@ $(document).ready(function() {
 							fontSize: 15
 						}
 					},
+					title: {
+						display: true,
+						fontColor: '#a6bbb8',
+						fontSize: 16,
+						fontWeight: 300,
+						text: 'Cost of Vehicle Rental in NZD'
+					},
 					scales: {
 						yAxes: [
 							{
@@ -332,7 +350,6 @@ $(document).ready(function() {
 									fontSize: 11,
 									beginAtZero: true
 								},
-
 								stacked: true
 							}
 						],
@@ -346,9 +363,7 @@ $(document).ready(function() {
 							}
 						]
 					},
-					// tooltips: {
-					// 	enabled: false
-					// },
+					// displays price on top of bar graph
 					plugins: {
 						datalabels: {
 							color: '#2f3c3b',
@@ -367,9 +382,11 @@ $(document).ready(function() {
 
 		// return to search page
 		returnHome: function() {
+			// resets data
 			app.globalElements.distance = 0;
 			app.globalElements.diffDays = 0;
 			app.globalElements.vehicleOptions = [];
+			// changes page display
 			$('.result').remove();
 			$('.results').addClass('displayNone');
 			$('.home').removeClass('displayNone');
