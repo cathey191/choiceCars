@@ -385,6 +385,11 @@ $(document).ready(function() {
 		},
 
 		book: function(e) {
+			var dropLoc = $('#dropLocation')[0].value;
+			if ($('#dropLocation')[0].value == 0) {
+				dropLoc = $('#pickLocation')[0].value;
+			}
+
 			// console.dir(e.target);
 			if (e.target.classList[0] === 'btn') {
 				$('#modalPick').text(
@@ -393,9 +398,7 @@ $(document).ready(function() {
 						$('#pickLocation')[0].value
 				);
 				$('#modalDrop').text(
-					$('#dropDate')[0].value +
-						' at 10am, from ' +
-						$('#dropLocation')[0].value
+					$('#dropDate')[0].value + ' at 10am, from ' + dropLoc
 				);
 				$('#exampleModal').modal('show');
 			}
