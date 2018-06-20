@@ -9,6 +9,7 @@ $(document).ready(function() {
 			vehicleOptions: [],
 			distance: 0,
 			diffDays: 0,
+			results: $('.results')[0],
 
 			// gets today's date, changes format
 			dateToday: function() {
@@ -44,6 +45,8 @@ $(document).ready(function() {
 				app.returnHome,
 				false
 			);
+
+			app.globalElements.results.addEventListener('click', app.book, false);
 		},
 
 		// increase/deceases people
@@ -300,7 +303,7 @@ $(document).ready(function() {
 				fuelKm[index] = Math.ceil(value * distance);
 			});
 
-			// multiplies all in fuel array by 2 ($2 is the example feul rate)
+			// multiplies all in fuel array by 2 ($2 is the example fuel rate)
 			$.each(fuelKm, function(index, value) {
 				fuelKm[index] = Math.ceil(value * 2);
 			});
@@ -378,6 +381,23 @@ $(document).ready(function() {
 					}
 				}
 			});
+		},
+
+		book: function(e) {
+			// console.dir(e.target);
+			if (e.target.classList[0] === 'btn') {
+				$('#modalPick').text(
+					$('#pickDate')[0].value +
+						' at 2pm, from ' +
+						$('#pickLocation')[0].value
+				);
+				$('#modalDrop').text(
+					$('#dropDate')[0].value +
+						' at 10am, from ' +
+						$('#dropLocation')[0].value
+				);
+				$('#exampleModal').modal('show');
+			}
 		},
 
 		// return to search page
