@@ -304,7 +304,6 @@ $(document).ready(function() {
 
 			// creates chart
 			var ctx = document.getElementById('chart').getContext('2d');
-			console.dir(ctx);
 			var chart = new Chart(ctx, {
 				type: 'bar',
 				data: {
@@ -313,29 +312,27 @@ $(document).ready(function() {
 						{
 							label: 'Total Days',
 							data: price,
-							backgroundColor: '#a6bbb8',
-							borderColor: '#2f3c3b',
+							backgroundColor: '#94C0E7',
+							borderColor: '#e2f4f6',
 							borderWidth: 1
 						},
 						{
 							label: 'Fuel Cost',
 							data: fuelKm,
-							backgroundColor: '#7E929A',
-							borderColor: '#2f3c3b',
+							backgroundColor: '#3c77a8',
+							borderColor: '#e2f4f6',
 							borderWidth: 1
 						}
 					]
 				},
 				options: {
 					legend: {
-						labels: {
-							fontColor: '#a6bbb8',
-							fontSize: 15
-						}
+						fontColor: '#e2f4f6',
+						fontSize: 15
 					},
 					title: {
 						display: true,
-						fontColor: '#a6bbb8',
+						fontColor: '#e2f4f6',
 						fontSize: 16,
 						fontWeight: 300,
 						text: 'Cost of Vehicle Rental in NZD'
@@ -344,7 +341,7 @@ $(document).ready(function() {
 						yAxes: [
 							{
 								ticks: {
-									fontColor: '#a6bbb8',
+									fontColor: '#e2f4f6',
 									fontSize: 11,
 									beginAtZero: true
 								},
@@ -354,7 +351,7 @@ $(document).ready(function() {
 						xAxes: [
 							{
 								ticks: {
-									fontColor: '#a6bbb8',
+									fontColor: '#e2f4f6',
 									fontSize: 11
 								},
 								stacked: true
@@ -364,7 +361,7 @@ $(document).ready(function() {
 					// displays price on top of bar graph
 					plugins: {
 						datalabels: {
-							color: '#2f3c3b',
+							color: '#e2f4f6',
 							display: function(context) {
 								return context.dataset.data[context.dataIndex] > 15;
 							},

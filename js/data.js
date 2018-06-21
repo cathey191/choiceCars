@@ -61,7 +61,7 @@ var geojson = {
 		type: 'Airport',
 		coordinates: [170.2022, -45.9259]
 	},
-	ChristChurch: {
+	Christchurch: {
 		type: 'Airport',
 		coordinates: [172.5369, -43.4864]
 	},
