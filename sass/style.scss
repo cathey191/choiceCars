@@ -172,9 +172,28 @@ p {
 	text-align: center;
 }
 
-.col-10 {
+.col-10,
+.col-2 {
 	margin: 0;
 	padding: 0;
+}
+
+.mcButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: $lightGreen;
+	color: $lightGray;
+	font-size: 1em;
+	font-family: 'Heebo', sans-serif;
+	text-align: center;
+}
+
+.rotate {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
 }
 
 // .col-6 {

@@ -10,6 +10,7 @@ $(document).ready(function() {
 			distance: 0,
 			diffDays: 0,
 			results: $('.results')[0],
+			mapChart: $('#mapChart')[0],
 
 			// gets today's date, changes format
 			dateToday: function() {
@@ -40,13 +41,17 @@ $(document).ready(function() {
 				app.searchButton,
 				false
 			);
+			app.globalElements.mapChart.addEventListener(
+				'click',
+				app.chartButton,
+				false
+			);
+			app.globalElements.results.addEventListener('click', app.book, false);
 			app.globalElements.return.addEventListener(
 				'click',
 				app.returnHome,
 				false
 			);
-
-			app.globalElements.results.addEventListener('click', app.book, false);
 		},
 
 		// increase/deceases people
@@ -226,8 +231,6 @@ $(document).ready(function() {
 				}).done(function(data) {
 					var route = data.routes[0].geometry;
 					app.globalElements.distance = data.routes[0].distance / 1000;
-
-					app.chart();
 					map.addLayer({
 						id: 'route',
 						type: 'line',
@@ -274,6 +277,27 @@ $(document).ready(function() {
 			});
 		},
 
+		// switched between map and chart
+		chartButton: function() {
+			var button = $('#mapChart')[0];
+			var buttonText = $('#buttonText')[0].innerHTML;
+
+			// if showing map, change to chart
+			if (buttonText === 'Pricing Chart') {
+				$('#mapDiv').addClass('displayNone');
+				$('#chartDiv').removeClass('displayNone');
+				app.chart();
+				$('#buttonText').text('View Map');
+
+				// if showing chart, change to map
+			} else {
+				$('#chartDiv').addClass('displayNone');
+				$('#mapDiv').removeClass('displayNone');
+				app.mapLocation();
+				$('#buttonText').text('Pricing Chart');
+			}
+		},
+
 		// creates chart
 		chart: function() {
 			// gets/holds required data
@@ -294,13 +318,13 @@ $(document).ready(function() {
 			}
 
 			// multiplies all in price array by the amount of days
-			app.test(price, app.globalElements.diffDays);
+			app.multiArray(price, app.globalElements.diffDays);
 
 			// multiplies all in fuel array by distance (in km)
-			app.test(fuelKm, distance);
+			app.multiArray(fuelKm, distance);
 
 			// multiplies all in fuel array by 2 ($2 is the example fuel rate)
-			app.test(fuelKm, 2);
+			app.multiArray(fuelKm, 2);
 
 			// creates chart
 			var ctx = document.getElementById('chart').getContext('2d');
@@ -327,8 +351,10 @@ $(document).ready(function() {
 				},
 				options: {
 					legend: {
-						fontColor: '#e2f4f6',
-						fontSize: 15
+						labels: {
+							fontColor: '#e2f4f6',
+							fontSize: 15
+						}
 					},
 					title: {
 						display: true,
@@ -342,7 +368,7 @@ $(document).ready(function() {
 							{
 								ticks: {
 									fontColor: '#e2f4f6',
-									fontSize: 11,
+									fontSize: 12,
 									beginAtZero: true
 								},
 								stacked: true
@@ -352,7 +378,7 @@ $(document).ready(function() {
 							{
 								ticks: {
 									fontColor: '#e2f4f6',
-									fontSize: 11
+									fontSize: 12
 								},
 								stacked: true
 							}
@@ -375,7 +401,7 @@ $(document).ready(function() {
 			});
 		},
 
-		test: function(array, multiply) {
+		multiArray: function(array, multiply) {
 			$.each(array, function(index, value) {
 				array[index] = Math.ceil(value * multiply);
 			});
