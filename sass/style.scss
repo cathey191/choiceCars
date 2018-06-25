@@ -117,8 +117,8 @@ p {
 }
 
 .greeenButton {
-	background-color: $lightGreen;
-	border-color: $darkGreen;
+	background-color: $lightBlue;
+	border-color: $darkBlue;
 	height: 2em;
 	font-size: 1.5em;
 	font-weight: bold;
@@ -182,7 +182,7 @@ p {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: $lightGreen;
+	background-color: $lightBlue;
 	color: $lightGray;
 	font-size: 1em;
 	font-family: 'Heebo', sans-serif;
@@ -267,12 +267,12 @@ p {
 
 // tooltip
 .tooltip-inner {
-	background-color: $lightGreen;
-	color: $darkGray;
+	background-color: $lightBlue;
+	color: $lightGray;
 }
 
 .bs-tooltip-top .arrow::before {
-	border-top-color: $lightGreen;
+	border-top-color: $lightBlue;
 }
 
 @media only screen and (min-width: 375px) {

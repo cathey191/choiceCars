@@ -401,20 +401,21 @@ $(document).ready(function() {
 			});
 		},
 
+		// multiplies each number in the array
 		multiArray: function(array, multiply) {
 			$.each(array, function(index, value) {
 				array[index] = Math.ceil(value * multiply);
 			});
 		},
 
+		// book options for that vehicle
 		book: function(e) {
-			var dropLoc = $('#dropLocation')[0].value;
-			if ($('#dropLocation')[0].value == 0) {
-				dropLoc = $('#pickLocation')[0].value;
-			}
-
-			// console.dir(e.target);
 			if (e.target.classList[0] === 'btn') {
+				var dropLoc = $('#dropLocation')[0].value;
+				if ($('#dropLocation')[0].value == 0) {
+					dropLoc = $('#pickLocation')[0].value;
+				}
+
 				$('#modalPick').text(
 					$('#pickDate')[0].value +
 						' at 2pm, from ' +
