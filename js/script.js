@@ -241,6 +241,7 @@ $(document).ready(function() {
 				}).done(function(data) {
 					var route = data.routes[0].geometry;
 					app.globalElements.distance = data.routes[0].distance / 1000;
+					app.chart();
 					map.addLayer({
 						id: 'route',
 						type: 'line',
@@ -296,14 +297,14 @@ $(document).ready(function() {
 			if (buttonText === 'Pricing Chart') {
 				$('#mapDiv').addClass('displayNone');
 				$('#chartDiv').removeClass('displayNone');
-				app.chart();
+
 				$('#buttonText').text('View Map');
 
 				// if showing chart, change to map
 			} else {
 				$('#chartDiv').addClass('displayNone');
 				$('#mapDiv').removeClass('displayNone');
-				app.mapLocation();
+				// app.mapLocation();
 				$('#buttonText').text('Pricing Chart');
 			}
 		},
@@ -418,6 +419,21 @@ $(document).ready(function() {
 			});
 		},
 
+		// return to search page
+		returnHome: function() {
+			// resets data
+			app.globalElements.distance = 0;
+			app.globalElements.diffDays = 0;
+			app.globalElements.vehicleOptions = [];
+			// changes page display
+			$('#chartDiv').addClass('displayNone');
+			$('#mapDiv').removeClass('displayNone');
+			$('#buttonText').text('Pricing Chart');
+			$('.result').remove();
+			$('.results').addClass('displayNone');
+			$('.home').removeClass('displayNone');
+		},
+
 		// book options for that vehicle
 		book: function(e) {
 			if (e.target.classList[0] === 'btn') {
@@ -462,18 +478,6 @@ $(document).ready(function() {
 				$('#bookModal').modal('hide');
 				$('#bookingMade').modal('show');
 			}
-		},
-
-		// return to search page
-		returnHome: function() {
-			// resets data
-			app.globalElements.distance = 0;
-			app.globalElements.diffDays = 0;
-			app.globalElements.vehicleOptions = [];
-			// changes page display
-			$('.result').remove();
-			$('.results').addClass('displayNone');
-			$('.home').removeClass('displayNone');
 		}
 	};
 
