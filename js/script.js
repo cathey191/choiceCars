@@ -387,7 +387,7 @@ $(document).ready(function() {
 					// displays price on top of bar graph
 					plugins: {
 						datalabels: {
-							color: '#e2f4f6',
+							color: '#2f3b3b',
 							display: function(context) {
 								return context.dataset.data[context.dataIndex] > 15;
 							},
