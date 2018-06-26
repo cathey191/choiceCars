@@ -81,8 +81,10 @@ $(document).ready(function() {
 			} else if (pickDate === '') {
 				$('#pickDate').tooltip('show');
 			} else if (app.compareDates(today, pickDate) <= -1) {
-				$('#pickDate')[0].title = 'The past is unavailable';
-				$('#pickDate').tooltip('show');
+				$('#pickDate')
+					.attr('title', 'The past is unavailable')
+					.tooltip('_fixTitle')
+					.tooltip('show');
 				// drop off date
 			} else if (
 				dropDate === '' ||
@@ -91,8 +93,10 @@ $(document).ready(function() {
 				$('#dropDate').tooltip('show');
 				// if all are selected
 			} else if (app.compareDates(pickDate, dropDate) > 10) {
-				$('#dropDate')[0].title = 'Max of ten days';
-				$('#dropDate').tooltip('show');
+				$('#dropDate')
+					.attr('title', 'Max of ten days')
+					.tooltip('_fixTitle')
+					.tooltip('show');
 			} else {
 				$('[data-toggle="tooltip"]').tooltip('hide');
 				app.getResults();
