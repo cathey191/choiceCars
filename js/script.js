@@ -11,6 +11,7 @@ $(document).ready(function() {
 			diffDays: 0,
 			results: $('.results')[0],
 			mapChart: $('#mapChart')[0],
+			bookingConfirmed: $('#bookingConfirmed')[0],
 
 			// gets today's date, changes format
 			dateToday: function() {
@@ -47,6 +48,11 @@ $(document).ready(function() {
 				false
 			);
 			app.globalElements.results.addEventListener('click', app.book, false);
+			app.globalElements.bookingConfirmed.addEventListener(
+				'click',
+				app.bookingConfirmed,
+				false
+			);
 			app.globalElements.return.addEventListener(
 				'click',
 				app.returnHome,
@@ -428,7 +434,33 @@ $(document).ready(function() {
 				$('#modalDrop').text(
 					$('#dropDate')[0].value + ' at 10am, from ' + dropLoc
 				);
-				$('#exampleModal').modal('show');
+				// $('#modalPrice').text(
+				// 	'NZD' +	$('#dropDate')[0].value
+				// );
+				$('#bookModal').modal('show');
+			}
+		},
+
+		bookingConfirmed: function() {
+			if ($('#bookingName')[0].value === '') {
+				$('#bookingName').tooltip('show');
+			} else if ($('#bookingEmail')[0].value === '') {
+				$('#bookingEmail').tooltip('show');
+			} else if ($('#bookingPhone')[0].value === '') {
+				$('#bookingPhone').tooltip('show');
+			} else {
+				// resets data
+				app.globalElements.distance = 0;
+				app.globalElements.diffDays = 0;
+				app.globalElements.vehicleOptions = [];
+				// changes page display
+				$('.result').remove();
+				$('.results').addClass('displayNone');
+				$('.home').removeClass('displayNone');
+
+				// hides modal
+				$('#bookModal').modal('hide');
+				$('#bookingMade').modal('show');
 			}
 		},
 
