@@ -475,37 +475,43 @@ $(document).ready(function() {
 	// $( "#dateLeave" ).datepicker({ dateFormat: 'dd-mm-yy' });
 	// $( "#dateReturn" ).datepicker({ dateFormat: 'dd-mm-yy' });
 
-	var dateFormat = 'mm-dd-yy',
-		from = $('#pickDate')
-			.datepicker({
-				dateFormat: 'dd-mm-yy',
-				defaultDate: 0,
-				minDate: 0,
-				numberOfMonths: 1
-			})
-			.on('change', function() {
-				to.datepicker('option', 'minDate', getDate(this));
-			}),
-		to = $('#dropDate')
-			.datepicker({
-				dateFormat: 'dd-mm-yy',
-				defaultDate: 0,
-				// defaultDate: 1,
-				// maxDate: '+10d',
-				numberOfMonths: 1
-			})
-			.on('change', function() {
-				from.datepicker('option', 'maxDate', getDate(this));
-			});
+	// var dateFormat = 'mm-dd-yy',
+	// 	from = $('#pickDate')
+	// 		.datepicker({
+	// 			dateFormat: 'dd-mm-yy',
+	// 			defaultDate: 0,
+	// 			minDate: 0,
+	// 			numberOfMonths: 1
+	// 		})
+	// 		.on('change', function() {
+	// 			to.datepicker('option', 'minDate', getDate(this));
+	// 		}),
+	// 	to = $('#dropDate').datepicker({
+	// 		dateFormat: 'dd-mm-yy',
+	// 		defaultDate: 0,
+	// 		// defaultDate: 1,
+	// 		// maxDate: '+10d',
+	// 		numberOfMonths: 1
+	// 	});
 
-	function getDate(element) {
-		var date;
-		try {
-			date = $.datepicker.parseDate(dateFormat, element.value);
-		} catch (error) {
-			date = null;
-		}
-
-		return date;
+	// calender controls
+	function activateDatePickers() {
+		$('#pickDate').datepicker({
+			minDate: 0,
+			onClose: function() {
+				$('#dropDate').datepicker('change', {
+					minDate: new Date($('#pickDate').val())
+				});
+			}
+		});
+		$('#dropDate').datepicker({
+			// maxDate: '+10d'
+			onClose: function() {
+				$('#pickDate').datepicker('change', {
+					maxDate: new Date($('#dropDate').val())
+				});
+			}
+		});
 	}
+	activateDatePickers();
 });
