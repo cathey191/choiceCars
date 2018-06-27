@@ -1,5 +1,4 @@
 @import 'variables.scss';
-@import 'date.scss';
 
 // Reset styling
 * {
@@ -244,6 +243,10 @@ p {
 }
 .displayNone {
 	display: none;
+}
+.sideNote {
+	font-size: 0.75em;
+	line-height: 14px;
 }
 
 // Passific Tags

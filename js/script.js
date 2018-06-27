@@ -10,24 +10,10 @@ $(document).ready(function() {
 			distance: 0,
 			diffDays: 0,
 			results: $('.results')[0],
+			price: [],
+			fuelKm: [],
 			mapChart: $('#mapChart')[0],
-			bookingConfirmed: $('#bookingConfirmed')[0],
-
-			// gets today's date, changes format
-			dateToday: function() {
-				var today = new Date();
-				var dd = today.getDate();
-				var mm = today.getMonth() + 1;
-				var yyyy = today.getFullYear();
-				if (dd < 10) {
-					dd = '0' + dd;
-				}
-				if (mm < 10) {
-					mm = '0' + mm;
-				}
-				today = yyyy + ', ' + dd + ', ' + mm;
-				return today;
-			}
+			bookingConfirmed: $('#bookingConfirmed')[0]
 		},
 
 		// all event listners
@@ -77,7 +63,6 @@ $(document).ready(function() {
 			var pickDate = $('#pickDate').datepicker('getDate');
 			var dropDate = $('#dropDate').datepicker('getDate');
 			var totalPpl = $('#totalPpl')[0].innerText;
-			var today = app.globalElements.dateToday();
 			$('[data-toggle="tooltip"]').tooltip('hide');
 
 			// val pick location, show tooltips
@@ -156,9 +141,13 @@ $(document).ready(function() {
 					newVehicle += '<div class="col-8">';
 					newVehicle += '<h3 class="title">' + dataType + '</h3>';
 					newVehicle +=
-						'<p class="stats">Manual<br />Special Licence Required<br />' +
+						'<p class="stats">Manual<br />$' +
+						data[i].price +
+						' per day<br />' +
 						data[i].fuelKm +
-						'L / 100km</p>';
+						'L / 100km<br />';
+					newVehicle +=
+						'<span class="sideNote">View Pricing Chart for estimated total cost</span></p>';
 					newVehicle += '<div class="statPeople">';
 					newVehicle +=
 						'<h5 class="numberPpl">' +
@@ -232,7 +221,7 @@ $(document).ready(function() {
 				}).done(function(data) {
 					var route = data.routes[0].geometry;
 					app.globalElements.distance = data.routes[0].distance / 1000;
-					app.chart();
+					app.pricing();
 					map.addLayer({
 						id: 'route',
 						type: 'line',
@@ -279,29 +268,7 @@ $(document).ready(function() {
 			});
 		},
 
-		// switched between map and chart
-		chartButton: function() {
-			var button = $('#mapChart')[0];
-			var buttonText = $('#buttonText')[0].innerHTML;
-
-			// if showing map, change to chart
-			if (buttonText === 'Pricing Chart') {
-				$('#mapDiv').addClass('displayNone');
-				$('#chartDiv').removeClass('displayNone');
-
-				$('#buttonText').text('View Map');
-
-				// if showing chart, change to map
-			} else {
-				$('#chartDiv').addClass('displayNone');
-				$('#mapDiv').removeClass('displayNone');
-				// app.mapLocation();
-				$('#buttonText').text('Pricing Chart');
-			}
-		},
-
-		// creates chart
-		chart: function() {
+		pricing: function() {
 			// gets/holds required data
 			var vehicleOptions = app.globalElements.vehicleOptions;
 			var price = [];
@@ -328,23 +295,54 @@ $(document).ready(function() {
 			// multiplies all in fuel array by 2 ($2 is the example fuel rate)
 			app.multiArray(fuelKm, 2);
 
+			// sets global pricing
+			app.globalElements.price = price;
+			app.globalElements.fuelKm = fuelKm;
+
+			// creates chart
+			app.chart();
+		},
+
+		// switched between map and chart
+		chartButton: function() {
+			var button = $('#mapChart')[0];
+			var buttonText = $('#buttonText')[0].innerHTML;
+
+			// if showing map, change to chart
+			if (buttonText === 'Pricing Chart') {
+				$('#mapDiv').addClass('displayNone');
+				$('#chartDiv').removeClass('displayNone');
+
+				$('#buttonText').text('View Map');
+
+				// if showing chart, change to map
+			} else {
+				$('#chartDiv').addClass('displayNone');
+				$('#mapDiv').removeClass('displayNone');
+				// app.mapLocation();
+				$('#buttonText').text('Pricing Chart');
+			}
+		},
+
+		// creates chart
+		chart: function() {
 			// creates chart
 			var ctx = document.getElementById('chart').getContext('2d');
 			var chart = new Chart(ctx, {
 				type: 'bar',
 				data: {
-					labels: vehicleOptions,
+					labels: app.globalElements.vehicleOptions,
 					datasets: [
 						{
 							label: 'Total Days',
-							data: price,
+							data: app.globalElements.price,
 							backgroundColor: '#94C0E7',
 							borderColor: '#e2f4f6',
 							borderWidth: 1
 						},
 						{
 							label: 'Fuel Cost',
-							data: fuelKm,
+							data: app.globalElements.fuelKm,
 							backgroundColor: '#3c77a8',
 							borderColor: '#e2f4f6',
 							borderWidth: 1
@@ -441,9 +439,9 @@ $(document).ready(function() {
 				$('#modalDrop').text(
 					$('#dropDate')[0].value + ' at 10am, from ' + dropLoc
 				);
-				// $('#modalPrice').text(
-				// 	'NZD' +	$('#dropDate')[0].value
-				// );
+				$('#modalPrice').text(
+					'NZD' +
+				);
 				$('#bookModal').modal('show');
 			}
 		},
