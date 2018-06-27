@@ -1,4 +1,5 @@
 @import 'variables.scss';
+@import 'date.scss';
 
 // Reset styling
 * {
@@ -99,7 +100,6 @@ p {
 
 //Input styling
 .dateInput {
-	width: auto;
 	@include inputStyle;
 }
 
@@ -292,7 +292,7 @@ p {
 
 	.dateInputs {
 		display: inline-flex;
-		width: 8em;
+		// width: 8em;
 	}
 
 	.dateTwo {

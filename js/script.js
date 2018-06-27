@@ -25,7 +25,7 @@ $(document).ready(function() {
 				if (mm < 10) {
 					mm = '0' + mm;
 				}
-				today = yyyy + '-' + mm + '-' + dd;
+				today = yyyy + ', ' + dd + ', ' + mm;
 				return today;
 			}
 		},
@@ -79,30 +79,18 @@ $(document).ready(function() {
 			var totalPpl = $('#totalPpl')[0].innerText;
 			var today = app.globalElements.dateToday();
 			$('[data-toggle="tooltip"]').tooltip('hide');
+
+			// console.dir(pickDate);
+
 			// val pick location, show tooltips
 			// pickup location
 			if (pickLoc === 'Choose...') {
 				$('#pickLocation').tooltip('show');
-				// pickup date
+				// 	// pickup date
 			} else if (pickDate === '') {
 				$('#pickDate').tooltip('show');
-			} else if (app.compareDates(today, pickDate) <= -1) {
-				$('#pickDate')
-					.attr('title', 'The past is unavailable')
-					.tooltip('_fixTitle')
-					.tooltip('show');
-				// drop off date
-			} else if (
-				dropDate === '' ||
-				app.compareDates(pickDate, dropDate) <= -1
-			) {
+			} else if (dropDate === '') {
 				$('#dropDate').tooltip('show');
-				// if all are selected
-			} else if (app.compareDates(pickDate, dropDate) > 10) {
-				$('#dropDate')
-					.attr('title', 'Max of ten days')
-					.tooltip('_fixTitle')
-					.tooltip('show');
 			} else {
 				$('[data-toggle="tooltip"]').tooltip('hide');
 				app.getResults();
@@ -483,4 +471,41 @@ $(document).ready(function() {
 
 	// runs all event listners
 	app.eventListener();
+
+	// $( "#dateLeave" ).datepicker({ dateFormat: 'dd-mm-yy' });
+	// $( "#dateReturn" ).datepicker({ dateFormat: 'dd-mm-yy' });
+
+	var dateFormat = 'mm-dd-yy',
+		from = $('#pickDate')
+			.datepicker({
+				dateFormat: 'dd-mm-yy',
+				defaultDate: 0,
+				minDate: 0,
+				numberOfMonths: 1
+			})
+			.on('change', function() {
+				to.datepicker('option', 'minDate', getDate(this));
+			}),
+		to = $('#dropDate')
+			.datepicker({
+				dateFormat: 'dd-mm-yy',
+				defaultDate: 0,
+				// defaultDate: 1,
+				// maxDate: '+10d',
+				numberOfMonths: 1
+			})
+			.on('change', function() {
+				from.datepicker('option', 'maxDate', getDate(this));
+			});
+
+	function getDate(element) {
+		var date;
+		try {
+			date = $.datepicker.parseDate(dateFormat, element.value);
+		} catch (error) {
+			date = null;
+		}
+
+		return date;
+	}
 });
