@@ -74,23 +74,26 @@ $(document).ready(function() {
 		// starts run of all process
 		searchButton: function() {
 			var pickLoc = $('#pickLocation')[0].value;
-			var pickDate = $('#pickDate')[0].value;
-			var dropDate = $('#dropDate')[0].value;
+			var pickDate = $('#pickDate').datepicker('getDate');
+			var dropDate = $('#dropDate').datepicker('getDate');
 			var totalPpl = $('#totalPpl')[0].innerText;
 			var today = app.globalElements.dateToday();
 			$('[data-toggle="tooltip"]').tooltip('hide');
-
-			// console.dir(pickDate);
 
 			// val pick location, show tooltips
 			// pickup location
 			if (pickLoc === 'Choose...') {
 				$('#pickLocation').tooltip('show');
 				// 	// pickup date
-			} else if (pickDate === '') {
+			} else if (pickDate === null) {
 				$('#pickDate').tooltip('show');
-			} else if (dropDate === '') {
+			} else if (dropDate === null) {
 				$('#dropDate').tooltip('show');
+			} else if (app.compareDates(pickDate, dropDate) > 16) {
+				$('#dropDate')
+					.attr('title', 'Max of fifteen days')
+					.tooltip('_fixTitle')
+					.tooltip('show');
 			} else {
 				$('[data-toggle="tooltip"]').tooltip('hide');
 				app.getResults();
@@ -127,8 +130,8 @@ $(document).ready(function() {
 			// inputs
 			var pickLoc = $('#pickLocation')[0].value;
 			var dropLoc = $('#dropLocation')[0].value;
-			var pickDate = $('#pickDate')[0].value;
-			var dropDate = $('#dropDate')[0].value;
+			var pickDate = $('#pickDate').datepicker('getDate');
+			var dropDate = $('#dropDate').datepicker('getDate');
 			var totalPpl = $('#totalPpl')[0].innerText;
 			// days
 			app.globalElements.diffDays = app.compareDates(pickDate, dropDate);
@@ -472,46 +475,35 @@ $(document).ready(function() {
 	// runs all event listners
 	app.eventListener();
 
-	// $( "#dateLeave" ).datepicker({ dateFormat: 'dd-mm-yy' });
-	// $( "#dateReturn" ).datepicker({ dateFormat: 'dd-mm-yy' });
-
-	// var dateFormat = 'mm-dd-yy',
-	// 	from = $('#pickDate')
-	// 		.datepicker({
-	// 			dateFormat: 'dd-mm-yy',
-	// 			defaultDate: 0,
-	// 			minDate: 0,
-	// 			numberOfMonths: 1
-	// 		})
-	// 		.on('change', function() {
-	// 			to.datepicker('option', 'minDate', getDate(this));
-	// 		}),
-	// 	to = $('#dropDate').datepicker({
-	// 		dateFormat: 'dd-mm-yy',
-	// 		defaultDate: 0,
-	// 		// defaultDate: 1,
-	// 		// maxDate: '+10d',
-	// 		numberOfMonths: 1
-	// 	});
-
-	// calender controls
-	function activateDatePickers() {
-		$('#pickDate').datepicker({
+	// date calender
+	var dateFormat = 'mm/dd/yy',
+		from = $('#pickDate')
+			.datepicker({
+				dateFormat: 'dd/mm/yy',
+				defaultDate: 0,
+				minDate: 0,
+				numberOfMonths: 1
+			})
+			.on('change', function() {
+				to.datepicker('option', 'minDate', getDate(this));
+				to.datepicker('option', 'maxDate', getDate(this) + '+10d');
+			}),
+		to = $('#dropDate').datepicker({
+			dateFormat: 'dd/mm/yy',
+			defaultDate: 0,
 			minDate: 0,
-			onClose: function() {
-				$('#dropDate').datepicker('change', {
-					minDate: new Date($('#pickDate').val())
-				});
-			}
+			numberOfMonths: 1
 		});
-		$('#dropDate').datepicker({
-			// maxDate: '+10d'
-			onClose: function() {
-				$('#pickDate').datepicker('change', {
-					maxDate: new Date($('#dropDate').val())
-				});
-			}
-		});
+
+	function getDate(element) {
+		var dateFormat = 'dd/mm/yy';
+		var newDate = $('#pickDate').datepicker({dateFormat: 'mm/dd/yy'});
+		var date;
+		try {
+			date = $.datepicker.parseDate(dateFormat, element.value);
+		} catch (error) {
+			date = null;
+		}
+		return date;
 	}
-	activateDatePickers();
 });

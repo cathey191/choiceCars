@@ -266,6 +266,11 @@ p {
 	max-width: 650px;
 }
 
+// date activateDatePickers.ui-datepicker,
+.ui-datepicker-header {
+	background-color: $darkGray;
+}
+
 // tooltip
 .tooltip-inner {
 	background-color: $lightBlue;
