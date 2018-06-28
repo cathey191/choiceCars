@@ -141,9 +141,9 @@ $(document).ready(function() {
 					newVehicle += '<div class="col-8">';
 					newVehicle += '<h3 class="title">' + dataType + '</h3>';
 					newVehicle +=
-						'<p class="stats">Manual<br />$' +
+						'<p class="stats">Manual<br />$<span class="dayPrice">' +
 						data[i].price +
-						' per day<br />' +
+						'</span> per day<br />' +
 						data[i].fuelKm +
 						'L / 100km<br />';
 					newVehicle +=
@@ -426,6 +426,12 @@ $(document).ready(function() {
 		// book options for that vehicle
 		book: function(e) {
 			if (e.target.classList[0] === 'btn') {
+				var dailyPrice =
+					e.target.parentElement.parentNode.children['0'].children[1]
+						.children[1].innerHTML;
+				var totalPrice = parseInt(dailyPrice) * app.globalElements.diffDays;
+
+				// resets droploc to same as pickup
 				var dropLoc = $('#dropLocation')[0].value;
 				if ($('#dropLocation')[0].value == 0) {
 					dropLoc = $('#pickLocation')[0].value;
@@ -439,9 +445,7 @@ $(document).ready(function() {
 				$('#modalDrop').text(
 					$('#dropDate')[0].value + ' at 10am, from ' + dropLoc
 				);
-				$('#modalPrice').text(
-					'NZD' +
-				);
+				$('#modalPrice').text('NZD' + totalPrice);
 				$('#bookModal').modal('show');
 			}
 		},
@@ -495,7 +499,7 @@ $(document).ready(function() {
 
 	function getDate(element) {
 		var dateFormat = 'dd/mm/yy';
-		var newDate = $('#pickDate').datepicker({dateFormat: 'mm/dd/yy'});
+		var newDate = $('#pickDate').datepicker({ dateFormat: 'mm/dd/yy' });
 		var date;
 		try {
 			date = $.datepicker.parseDate(dateFormat, element.value);
