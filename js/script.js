@@ -445,7 +445,7 @@ $(document).ready(function() {
 				$('#modalDrop').text(
 					$('#dropDate')[0].value + ' at 10am, from ' + dropLoc
 				);
-				$('#modalPrice').text('NZD' + totalPrice);
+				$('#modalPrice').text('NZD ' + totalPrice);
 				$('#bookModal').modal('show');
 			}
 		},
@@ -488,18 +488,23 @@ $(document).ready(function() {
 			})
 			.on('change', function() {
 				to.datepicker('option', 'minDate', getDate(this));
-				to.datepicker('option', 'maxDate', getDate(this) + '+10d');
 			}),
-		to = $('#dropDate').datepicker({
-			dateFormat: 'dd/mm/yy',
-			defaultDate: 0,
-			minDate: 0,
-			numberOfMonths: 1
-		});
+		to = $('#dropDate')
+			.datepicker({
+				dateFormat: 'dd/mm/yy',
+				defaultDate: 0,
+				minDate: 0,
+				numberOfMonths: 1
+			})
+			.on('change', function() {
+				from.datepicker('option', 'maxDate', getDate(this));
+			});
 
 	function getDate(element) {
 		var dateFormat = 'dd/mm/yy';
-		var newDate = $('#pickDate').datepicker({ dateFormat: 'mm/dd/yy' });
+		var newDate = $('#' + element.id).datepicker({
+			dateFormat: 'mm/dd/yy'
+		});
 		var date;
 		try {
 			date = $.datepicker.parseDate(dateFormat, element.value);

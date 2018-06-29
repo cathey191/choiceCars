@@ -1,23 +1,13 @@
 var data = [
-	(motorbike = {
-		type: 'Motorbike',
-		img: 'motorbike',
-		mixSeat: 1,
-		maxSeat: 1,
-		price: 109,
-		minDay: 1,
-		maxDay: 5,
-		fuelKm: 3.7
-	}),
-	(smallCar = {
-		type: 'Small Car',
-		img: 'smallCar',
-		mixSeat: 1,
-		maxSeat: 2,
-		price: 129,
-		minDay: 1,
-		maxDay: 10,
-		fuelKm: 8.5
+	(motorhome = {
+		type: 'Motorhome',
+		img: 'motorhome',
+		mixSeat: 2,
+		maxSeat: 6,
+		price: 200,
+		minDay: 2,
+		maxDay: 15,
+		fuelKm: 17
 	}),
 	(largeCar = {
 		type: 'Large Car',
@@ -29,15 +19,25 @@ var data = [
 		maxDay: 10,
 		fuelKm: 9.7
 	}),
-	(motorhome = {
-		type: 'Motorhome',
-		img: 'motorhome',
-		mixSeat: 2,
-		maxSeat: 6,
-		price: 200,
-		minDay: 2,
-		maxDay: 15,
-		fuelKm: 17
+	(smallCar = {
+		type: 'Small Car',
+		img: 'smallCar',
+		mixSeat: 1,
+		maxSeat: 2,
+		price: 129,
+		minDay: 1,
+		maxDay: 10,
+		fuelKm: 8.5
+	}),
+	(motorbike = {
+		type: 'Motorbike',
+		img: 'motorbike',
+		mixSeat: 1,
+		maxSeat: 1,
+		price: 109,
+		minDay: 1,
+		maxDay: 5,
+		fuelKm: 3.7
 	})
 ];
 var geojson = {
