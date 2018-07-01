@@ -6,6 +6,7 @@ connect = require('gulp-connect');
 jshint = require('gulp-jshint');
 rename = require('gulp-rename');
 minifyCss = require('gulp-minify-css');
+minifyJS = require('gulp-minify');
 
 //Server Task
 gulp.task('serve', function(event) {
@@ -39,6 +40,18 @@ gulp.task('lint', function() {
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'))
 		.pipe(connect.reload());
+});
+
+//Minify js
+gulp.task('compress', function(location) {
+	gulp
+		.src(['js/*.js'])
+		.pipe(
+			minifyJS({
+				ignoreFiles: ['.combo.js', '-min.js']
+			})
+		)
+		.pipe(gulp.dest(location));
 });
 
 //Watch task to watch for file changes

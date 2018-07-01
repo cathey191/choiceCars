@@ -195,7 +195,7 @@ $(document).ready(function() {
 			// creates map
 			mapboxgl.accessToken =
 				'pk.eyJ1IjoiY2F0aGV5MTkxIiwiYSI6ImNqaTNtb2o1ODAwNjgzcHF0ZWQxdmVtcTcifQ.BaXfgHPABUk6-kMMyyMNXQ';
-			const map = new mapboxgl.Map({
+			var map = new mapboxgl.Map({
 				container: 'map', // container id
 				style: 'mapbox://styles/cathey191/cji3oxshg1lt72rkzkj9i7c0m',
 				center: [172, -41.279],
