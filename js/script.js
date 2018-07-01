@@ -426,9 +426,9 @@ $(document).ready(function() {
 		// book options for that vehicle
 		book: function(e) {
 			if (e.target.classList[0] === 'btn') {
-				var dailyPrice =
-					e.target.parentElement.parentNode.children['0'].children[1]
-						.children[1].innerHTML;
+				var element = e.target.parentElement.parentNode.children['0'];
+				var vehicle = element.childNodes['0'].innerText;
+				var dailyPrice = element.children[1].children[1].innerHTML;
 				var totalPrice = parseInt(dailyPrice) * app.globalElements.diffDays;
 
 				// resets droploc to same as pickup
@@ -436,7 +436,7 @@ $(document).ready(function() {
 				if ($('#dropLocation')[0].value == 0) {
 					dropLoc = $('#pickLocation')[0].value;
 				}
-
+				$('#bookModalLabel').text('New Booking For a ' + vehicle);
 				$('#modalPick').text(
 					$('#pickDate')[0].value +
 						' at 2pm, from ' +
