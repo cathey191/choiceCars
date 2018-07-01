@@ -106,8 +106,16 @@ p {
 	@include inputStyle;
 }
 
-.pplButton,
 .peopleInput {
+	width: 2em;
+	height: 2.25em;
+	font-weight: bold;
+	font-size: 1.25em;
+	@include inputStyle;
+}
+
+.pplButton {
+	z-index: 0 !important;
 	width: 2em;
 	height: 2.25em;
 	font-weight: bold;
@@ -273,6 +281,10 @@ p {
 }
 
 // calender api styling
+.ui-datepicker-div {
+	z-index: 100;
+}
+
 .ui-datepicker-calendar {
 	background-color: $darkGray;
 }
