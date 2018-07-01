@@ -43,7 +43,7 @@ gulp.task('lint', function() {
 });
 
 //Minify js
-gulp.task('compress', function(location) {
+gulp.task('compress', function() {
 	gulp
 		.src(['js/*.js'])
 		.pipe(
@@ -51,7 +51,7 @@ gulp.task('compress', function(location) {
 				ignoreFiles: ['.combo.js', '-min.js']
 			})
 		)
-		.pipe(gulp.dest(location));
+		.pipe(gulp.dest('jsMin/'));
 });
 
 //Watch task to watch for file changes
@@ -62,4 +62,4 @@ gulp.task('watch', function() {
 });
 
 // gulp.task('default', ['serve', 'styles', 'html', 'lint', 'watch']);
-gulp.task('default', ['serve', 'styles', 'html', 'watch']);
+gulp.task('default', ['serve', 'styles', 'html', 'compress', 'watch']);
