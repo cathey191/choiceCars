@@ -52,7 +52,7 @@ $(document).ready(function() {
 			var dateFormat = 'mm/dd/yy';
 
 			// sets pickDate date calender
-			var from = $('#pickDate')
+			var pickDate = $('#pickDate')
 				// sets display information
 				.datepicker({
 					dateFormat: 'dd/mm/yy',
@@ -62,11 +62,11 @@ $(document).ready(function() {
 				})
 				// resets dropDate calender to have a min date of pickDate
 				.on('change', function() {
-					to.datepicker('option', 'minDate', app.getDate(this));
+					dropDate.datepicker('option', 'minDate', app.getDate(this));
 				});
 
 			// sets dropoff date calender
-			var to = $('#dropDate')
+			var dropDate = $('#dropDate')
 				// sets display information
 				.datepicker({
 					dateFormat: 'dd/mm/yy',
@@ -76,7 +76,7 @@ $(document).ready(function() {
 				})
 				// resets pickDate calender to have a max date of pickDate
 				.on('change', function() {
-					from.datepicker('option', 'maxDate', app.getDate(this));
+					pickDate.datepicker('option', 'maxDate', app.getDate(this));
 				});
 		},
 
