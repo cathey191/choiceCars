@@ -36,7 +36,7 @@ gulp.task('html', function() {
 //JS Lint Task for correcting and monitoring your custom.js
 gulp.task('lint', function() {
 	gulp
-		.src('js/*.js')
+		.src('jsHand/*.js')
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'))
 		.pipe(connect.reload());
@@ -46,11 +46,7 @@ gulp.task('lint', function() {
 gulp.task('compress', function() {
 	gulp
 		.src(['jsHand/*.js'])
-		.pipe(
-			minifyJS({
-				ignoreFiles: ['.combo.js', '-min.js']
-			})
-		)
+		.pipe(minifyJS())
 		.pipe(gulp.dest('js/'));
 });
 
