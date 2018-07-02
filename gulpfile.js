@@ -45,21 +45,21 @@ gulp.task('lint', function() {
 //Minify js
 gulp.task('compress', function() {
 	gulp
-		.src(['js/*.js'])
+		.src(['jsHand/*.js'])
 		.pipe(
 			minifyJS({
 				ignoreFiles: ['.combo.js', '-min.js']
 			})
 		)
-		.pipe(gulp.dest('jsMin/'));
+		.pipe(gulp.dest('js/'));
 });
 
 //Watch task to watch for file changes
 gulp.task('watch', function() {
 	gulp.watch('sass/**/*.scss', ['styles']);
 	gulp.watch('./*.html', ['html']);
-	gulp.watch('js/*.js', ['lint']);
+	gulp.watch('jsHand/*.js', ['lint', 'compress']);
 });
 
 // gulp.task('default', ['serve', 'styles', 'html', 'lint', 'watch']);
-gulp.task('default', ['serve', 'styles', 'html', 'compress', 'watch']);
+gulp.task('default', ['serve', 'styles', 'html', 'watch']);
