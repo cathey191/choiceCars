@@ -46,6 +46,56 @@ $(document).ready(function() {
 			);
 		},
 
+		// date calender
+		calender: function() {
+			// sets current format of date
+			var dateFormat = 'mm/dd/yy';
+
+			// sets pickDate date calender
+			var from = $('#pickDate')
+				// sets display information
+				.datepicker({
+					dateFormat: 'dd/mm/yy',
+					defaultDate: 0,
+					minDate: 0,
+					numberOfMonths: 1
+				})
+				// resets dropDate calender to have a min date of pickDate
+				.on('change', function() {
+					to.datepicker('option', 'minDate', app.getDate(this));
+				});
+
+			// sets dropoff date calender
+			var to = $('#dropDate')
+				// sets display information
+				.datepicker({
+					dateFormat: 'dd/mm/yy',
+					defaultDate: 0,
+					minDate: 0,
+					numberOfMonths: 1
+				})
+				// resets pickDate calender to have a max date of pickDate
+				.on('change', function() {
+					from.datepicker('option', 'maxDate', app.getDate(this));
+				});
+		},
+
+		// resets date format for setting min and max dates
+		getDate: function(element) {
+			// resets date format
+			var dateFormat = 'dd/mm/yy';
+			var newDate = $('#' + element.id).datepicker({
+				dateFormat: 'mm/dd/yy'
+			});
+			var date;
+			try {
+				date = $.datepicker.parseDate(dateFormat, element.value);
+			} catch (error) {
+				date = null;
+			}
+			return date;
+		},
+
 		// increase/deceases people
 		peopleButtons: function(e) {
 			var totalPpl = $('#totalPpl')[0];
@@ -476,43 +526,6 @@ $(document).ready(function() {
 
 	// runs all event listners
 	app.eventListener();
-
-	// date calender
-	var dateFormat = 'mm/dd/yy',
-		from = $('#pickDate')
-			.datepicker({
-				dateFormat: 'dd/mm/yy',
-				defaultDate: 0,
-				minDate: 0,
-				numberOfMonths: 1
-			})
-			.on('change', function() {
-				to.datepicker('option', 'minDate', getDate(this));
-			}),
-		to = $('#dropDate')
-			.datepicker({
-				dateFormat: 'dd/mm/yy',
-				defaultDate: 0,
-				minDate: 0,
-				numberOfMonths: 1
-			})
-			.on('change', function() {
-				from.datepicker('option', 'maxDate', getDate(this));
-			});
-
-	// resets date
-	function getDate(element) {
-		// resets date format
-		var dateFormat = 'dd/mm/yy';
-		var newDate = $('#' + element.id).datepicker({
-			dateFormat: 'mm/dd/yy'
-		});
-		var date;
-		try {
-			date = $.datepicker.parseDate(dateFormat, element.value);
-		} catch (error) {
-			date = null;
-		}
-		return date;
-	}
+	// runs calender checker
+	app.calender();
 });
