@@ -97,7 +97,7 @@ p {
 	background-color: $darkGray;
 }
 
-//Input styling
+// Input styling
 .dateInput {
 	@include inputStyle;
 }
@@ -242,10 +242,6 @@ p {
 	@include inputStyle;
 }
 
-.fas {
-	font-size: 1.25em;
-}
-
 .floatRight {
 	float: right;
 }
@@ -260,7 +256,7 @@ p {
 	line-height: 0.75em;
 }
 
-// Passific Tags
+// Specific Tags
 .logo {
 	font-family: 'Philosopher', sans-serif;
 	color: $darkGray;
@@ -278,6 +274,11 @@ p {
 
 .locations {
 	max-width: 650px;
+}
+
+// ppl icon size
+.fas {
+	font-size: 1.25em;
 }
 
 // calender api styling
@@ -319,7 +320,6 @@ p {
 
 	.dateInputs {
 		display: inline-flex;
-		// width: 8em;
 	}
 
 	.dateTwo {
@@ -331,6 +331,11 @@ p {
 	.result {
 		max-width: 750px;
 		margin: 0 auto;
+	}
+
+	.topper {
+		width: 100vw;
+		height: 222px;
 	}
 
 	.pBottom {
