@@ -1,0 +1,18 @@
+<div class="section result row">
+	<div class="col-8">
+		<h3 class="title">' + dataType + '</h3>
+		<p class="stats">Manual<br />$
+			<span class="dayPrice">' +	data[i].price +	'</span> per day<br />
+			' +	data[i].fuelKm +	'L / 100km<br />
+			<span class="sideNote">View Pricing Chart for estimated total cost</span>
+		</p>
+		<div class="statPeople">
+			<h5 class="numberPpl">' +	data[i].mixSeat +	'-' +	data[i].maxSeat +	'</h5>
+			<i class="fas fa-user"></i>
+		</div>
+	</div>
+	<div class="col-4 iconButton">
+		<img class="icon" src="img/' +	dataImg +	'.svg" alt="' +	dataType +	'">
+		<button class="btn btn-outline-secondary greeenButton pBottom" >Book</button>
+	</div>
+</div>

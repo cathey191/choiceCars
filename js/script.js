@@ -187,37 +187,16 @@ $(document).ready(function() {
 					data[i].maxDay >= diffDays
 				) {
 					app.globalElements.vehicleOptions.push(dataType);
-					var newVehicle = '<div class="section result row">';
-					newVehicle += '<div class="col-8">';
-					newVehicle += '<h3 class="title">' + dataType + '</h3>';
-					newVehicle +=
-						'<p class="stats">Manual<br />$<span class="dayPrice">' +
-						data[i].price +
-						'</span> per day<br />' +
-						data[i].fuelKm +
-						'L / 100km<br />';
-					newVehicle +=
-						'<span class="sideNote">View Pricing Chart for estimated total cost</span></p>';
-					newVehicle += '<div class="statPeople">';
-					newVehicle +=
-						'<h5 class="numberPpl">' +
-						data[i].mixSeat +
-						'-' +
-						data[i].maxSeat +
-						'</h5>';
-					newVehicle += '<i class="fas fa-user"></i>';
-					newVehicle += '</div></div>';
-					newVehicle += '<div class="col-4 iconButton">';
-					newVehicle +=
-						'<img class="icon" src="img/' +
-						dataImg +
-						'.svg" alt="' +
-						dataType +
-						'">';
-					newVehicle +=
-						'<button class="btn btn-outline-secondary greeenButton pBottom" >Book</button>';
-					newVehicle += '</div></div>';
-					app.globalElements.topper.insertAdjacentHTML('afterend', newVehicle);
+
+					// var ele = document.createElement('p');
+					// ele.setAttribute('class', 'title' + [i]);
+
+					app.createSection(dataType, i);
+					// ele.setAttribute('class', 'title' + i);
+
+					// app.globalElements.topper.after(ele);
+
+					// $('.title' + [i]).text(dataType);
 				} else {
 					numberFail.push(dataType);
 				}
@@ -227,6 +206,33 @@ $(document).ready(function() {
 				return 'fail';
 			} else {
 				return 'pass';
+			}
+		},
+
+		createSection: function(dataType, i) {
+			// var col8 = document.createElement('div');
+			// col8.setAttribute('class', 'col-8');
+			// var title = document.createElement('h3');
+			// title.setAttribute('class', 'title' + i);
+			// sectionDiv.appendChild(col8);
+			// col8.appendChild(title);
+
+			var section = app.createEle('div', 'section result row', false);
+			var col8 = app.createEle('div', 'col-8', section);
+			app.createEle('h3', 'title' + i, col8);
+
+			app.globalElements.topper.after(section);
+
+			$('.title' + [i]).text(dataType);
+		},
+
+		createEle: function(element, className, placement) {
+			var name = document.createElement(element);
+			name.setAttribute('class', className);
+			if (placement) {
+				placement.appendChild(name);
+			} else {
+				return name;
 			}
 		},
 
